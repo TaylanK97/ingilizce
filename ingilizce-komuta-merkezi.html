@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İngilizce Komuta Merkezi</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🎯</text></svg>">
+<style>
+:root{
+  --bg:#07090f; --bg2:#0c1120; --card:rgba(255,255,255,.035); --card2:rgba(255,255,255,.06);
+  --bor:rgba(255,255,255,.08); --bor2:rgba(255,255,255,.16);
+  --tx:#e8ecf4; --tx2:#9aa5bb; --tx3:#5f6a82;
+  --or:#ff7a3c; --or2:#ffa36b; --cy:#33d6f5; --gr:#3ddc84; --rd:#ff5470; --yl:#ffd166; --pu:#a78bfa;
+  --rad:16px; --rad2:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:radial-gradient(1200px 600px at 80% -10%,rgba(255,122,60,.09),transparent 60%),
+             radial-gradient(1000px 500px at -10% 30%,rgba(51,214,245,.07),transparent 60%),
+             linear-gradient(160deg,var(--bg) 0%,var(--bg2) 100%);
+  background-attachment:fixed; color:var(--tx); min-height:100vh; line-height:1.55;
+}
+::selection{background:rgba(255,122,60,.35)}
+h1,h2,h3,h4{line-height:1.25;font-weight:700}
+h2{font-size:1.45rem;margin-bottom:4px}
+h3{font-size:1.12rem}
+p{color:var(--tx2)}
+strong{color:var(--tx)}
+a{color:var(--cy);text-decoration:none}
+a:hover{text-decoration:underline}
+code,.kbd{font-family:ui-monospace,Consolas,monospace;font-size:.85em;background:rgba(255,255,255,.07);padding:2px 7px;border-radius:6px;border:1px solid var(--bor)}
+.kbd{box-shadow:0 2px 0 rgba(255,255,255,.08)}
+
+/* ---------- header ---------- */
+header{
+  position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:12px 20px;background:rgba(8,11,18,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--bor);
+}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;letter-spacing:.2px}
+.logo .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:18px;
+  background:linear-gradient(135deg,var(--or),#ff4d6d);box-shadow:0 4px 18px rgba(255,90,60,.35)}
+.logo .grad{background:linear-gradient(90deg,var(--or2),var(--cy));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hstats{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+.stat{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--bor);
+  padding:6px 12px;border-radius:99px;font-size:.85rem;font-weight:600}
+.stat .v{color:var(--or2)}
+.stat.cyv .v{color:var(--cy)} .stat.grv .v{color:var(--gr)}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:59px;z-index:49;display:flex;gap:6px;padding:10px 16px;overflow-x:auto;
+  background:rgba(8,11,18,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--bor);scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{
+  flex-shrink:0;background:transparent;border:1px solid transparent;color:var(--tx2);cursor:pointer;
+  padding:8px 14px;border-radius:99px;font-size:.9rem;font-weight:600;transition:.18s;
+}
+nav button:hover{color:var(--tx);background:var(--card)}
+nav button.act{color:#0b0d12;background:linear-gradient(90deg,var(--or),var(--or2));box-shadow:0 4px 16px rgba(255,122,60,.3)}
+
+/* ---------- layout ---------- */
+main{max-width:1080px;margin:0 auto;padding:24px 18px 90px}
+section{display:none;animation:fadein .25s ease}
+section.act{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--bor);border-radius:var(--rad);padding:20px;margin-bottom:16px}
+.card.hi{border-color:rgba(255,122,60,.35);background:linear-gradient(135deg,rgba(255,122,60,.08),rgba(255,255,255,.02))}
+.card.cyb{border-color:rgba(51,214,245,.3)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:840px){.grid2,.grid3{grid-template-columns:1fr}}
+.sub{color:var(--tx3);font-size:.85rem}
+.lead{font-size:1.02rem;margin:6px 0 14px}
+.secthead{margin:4px 0 18px}
+.secthead .sub{margin-top:4px}
+hr.sep{border:0;border-top:1px solid var(--bor);margin:16px 0}
+
+/* ---------- buttons & inputs ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;border:1px solid var(--bor2);
+  background:var(--card2);color:var(--tx);padding:10px 18px;border-radius:var(--rad2);font-size:.92rem;font-weight:650;transition:.15s}
+.btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.1)}
+.btn:active{transform:none}
+.btn.primary{background:linear-gradient(90deg,var(--or),#ff5e3a);border-color:transparent;color:#fff;box-shadow:0 6px 20px rgba(255,90,50,.3)}
+.btn.cyan{background:linear-gradient(90deg,#1ab8d8,var(--cy));border-color:transparent;color:#06202a}
+.btn.green{background:linear-gradient(90deg,#27b56a,var(--gr));border-color:transparent;color:#062a16}
+.btn.small{padding:6px 12px;font-size:.82rem;border-radius:9px}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.input,.textarea,select.input{
+  width:100%;background:rgba(0,0,0,.3);border:1px solid var(--bor2);border-radius:var(--rad2);
+  color:var(--tx);padding:11px 14px;font-size:.95rem;font-family:inherit;outline:none;transition:.15s}
+.input:focus,.textarea:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(255,122,60,.15)}
+.textarea{min-height:120px;resize:vertical;line-height:1.6}
+label.lbl{display:block;font-size:.82rem;font-weight:700;color:var(--tx2);margin:10px 0 6px;text-transform:uppercase;letter-spacing:.5px}
+
+/* ---------- tags / pills ---------- */
+.tag{display:inline-block;padding:3px 10px;border-radius:99px;font-size:.74rem;font-weight:700;letter-spacing:.3px}
+.tag.a1{background:rgba(61,220,132,.15);color:var(--gr);border:1px solid rgba(61,220,132,.3)}
+.tag.a2{background:rgba(51,214,245,.13);color:var(--cy);border:1px solid rgba(51,214,245,.3)}
+.tag.b1{background:rgba(167,139,250,.15);color:var(--pu);border:1px solid rgba(167,139,250,.3)}
+.tag.or{background:rgba(255,122,60,.14);color:var(--or2);border:1px solid rgba(255,122,60,.3)}
+.tag.yl{background:rgba(255,209,102,.12);color:var(--yl);border:1px solid rgba(255,209,102,.3)}
+.pillrow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.pill{cursor:pointer;background:var(--card);border:1px solid var(--bor2);color:var(--tx2);padding:7px 14px;border-radius:99px;font-size:.85rem;font-weight:600;transition:.15s}
+.pill:hover{color:var(--tx)}
+.pill.act{background:rgba(255,122,60,.15);border-color:var(--or);color:var(--or2)}
+
+/* ---------- accordion ---------- */
+details{background:var(--card);border:1px solid var(--bor);border-radius:var(--rad2);margin-bottom:10px;overflow:hidden}
+details summary{cursor:pointer;padding:14px 18px;font-weight:700;list-style:none;display:flex;align-items:center;gap:10px;transition:.15s}
+details summary::-webkit-details-marker{display:none}
+details summary:hover{background:var(--card2)}
+details summary::after{content:"+";margin-left:auto;color:var(--or);font-size:1.2rem;font-weight:400}
+details[open] summary::after{content:"–"}
+details .inner{padding:4px 18px 18px;border-top:1px solid var(--bor)}
+details .inner p{margin-bottom:10px}
+
+/* ---------- checklist ---------- */
+.chk{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid var(--bor);border-radius:var(--rad2);
+  margin-bottom:8px;cursor:pointer;transition:.18s;background:rgba(0,0,0,.15)}
+.chk:hover{border-color:var(--bor2)}
+.chk.done{opacity:.55;background:rgba(61,220,132,.06);border-color:rgba(61,220,132,.25)}
+.chk.done .t{text-decoration:line-through}
+.chk .box{width:22px;height:22px;flex-shrink:0;border-radius:7px;border:2px solid var(--tx3);display:grid;place-items:center;font-size:13px;color:#06210f;transition:.15s}
+.chk.done .box{background:var(--gr);border-color:var(--gr)}
+.chk .t{font-weight:600;font-size:.93rem}
+.chk .d{font-size:.78rem;color:var(--tx3)}
+.chk .xp{margin-left:auto;flex-shrink:0}
+
+/* ---------- flashcard ---------- */
+.flash{min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  background:linear-gradient(150deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--bor2);
+  border-radius:20px;padding:28px;margin:14px 0;position:relative}
+.flash .front{font-size:2rem;font-weight:800}
+.flash .back{margin-top:14px;animation:fadein .2s}
+.flash .tr{font-size:1.3rem;color:var(--or2);font-weight:700}
+.flash .ex{margin-top:10px;color:var(--tx2);font-style:italic}
+.flash .lvtag{position:absolute;top:14px;left:14px}
+.flash .speak{position:absolute;top:12px;right:12px}
+.gradebtns{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.gradebtns .btn{flex-direction:column;gap:2px;padding:10px 6px}
+.gradebtns .sub{font-size:.7rem}
+.gAgain{border-color:rgba(255,84,112,.5)!important;color:var(--rd)}
+.gHard{border-color:rgba(255,209,102,.5)!important;color:var(--yl)}
+.gGood{border-color:rgba(51,214,245,.5)!important;color:var(--cy)}
+.gEasy{border-color:rgba(61,220,132,.5)!important;color:var(--gr)}
+
+/* ---------- diff / score ---------- */
+.diffbox{background:rgba(0,0,0,.3);border:1px solid var(--bor);border-radius:var(--rad2);padding:14px;line-height:2;font-size:1.02rem}
+.w-ok{color:var(--gr)} .w-miss{color:var(--rd);text-decoration:underline wavy rgba(255,84,112,.6)} .w-extra{color:var(--yl);opacity:.8}
+.scorering{font-size:2.6rem;font-weight:800;text-align:center}
+.scorering .lab{display:block;font-size:.8rem;color:var(--tx3);font-weight:600}
+
+/* ---------- progress bars ---------- */
+.pbar{height:10px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden}
+.pbar>div{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--or),var(--yl));transition:width .4s}
+.weekbars{display:flex;align-items:flex-end;gap:8px;height:140px;padding-top:10px}
+.weekbars .wb{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+.weekbars .bar{width:100%;max-width:46px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--cy),rgba(51,214,245,.25));min-height:3px;transition:height .5s}
+.weekbars .bl{font-size:.72rem;color:var(--tx3);font-weight:700}
+.weekbars .bv{font-size:.72rem;color:var(--cy);font-weight:700}
+.calgrid{display:grid;grid-template-columns:repeat(14,1fr);gap:4px}
+.calgrid .c{aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.06)}
+.calgrid .c.l1{background:rgba(255,122,60,.25)} .calgrid .c.l2{background:rgba(255,122,60,.55)} .calgrid .c.l3{background:var(--or)}
+
+/* ---------- prompt blocks ---------- */
+.promptbox{position:relative;background:rgba(0,0,0,.35);border:1px solid var(--bor);border-left:3px solid var(--cy);
+  border-radius:var(--rad2);padding:14px 16px;margin:10px 0;font-family:ui-monospace,Consolas,monospace;font-size:.84rem;
+  white-space:pre-wrap;color:#c9d6e8;line-height:1.6}
+.copybtn{position:absolute;top:8px;right:8px}
+
+/* ---------- misc ---------- */
+.bignum{font-size:2.2rem;font-weight:800;line-height:1}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.statgrid .card{margin:0;text-align:center;padding:16px}
+.statgrid .lab{font-size:.78rem;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-top:6px}
+.hint{display:flex;gap:10px;align-items:flex-start;background:rgba(51,214,245,.07);border:1px solid rgba(51,214,245,.25);
+  border-radius:var(--rad2);padding:12px 14px;font-size:.88rem;color:var(--tx2);margin:10px 0}
+.hint.warn{background:rgba(255,209,102,.07);border-color:rgba(255,209,102,.3)}
+.hint.imp{background:rgba(255,122,60,.08);border-color:rgba(255,122,60,.35)}
+.emptymsg{text-align:center;color:var(--tx3);padding:30px 10px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a2233;color:var(--tx);
+  border:1px solid var(--bor2);padding:12px 22px;border-radius:99px;font-weight:600;font-size:.9rem;z-index:99;
+  transition:.3s;opacity:0;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.xpfly{position:fixed;z-index:98;font-weight:800;color:var(--yl);pointer-events:none;animation:flyup 1s ease-out forwards;font-size:1.05rem}
+@keyframes flyup{to{transform:translateY(-60px);opacity:0}}
+table.simple{width:100%;border-collapse:collapse;font-size:.9rem}
+table.simple th,table.simple td{padding:9px 10px;border-bottom:1px solid var(--bor);text-align:left}
+table.simple th{color:var(--tx3);font-size:.78rem;text-transform:uppercase;letter-spacing:.5px}
+.scenario .phr{background:rgba(0,0,0,.25);border-radius:8px;padding:7px 12px;margin:5px 0;font-size:.92rem;display:flex;align-items:center;gap:8px}
+.scenario .phr .sp{margin-left:auto}
+.iconbtn{cursor:pointer;background:var(--card2);border:1px solid var(--bor2);color:var(--tx2);width:34px;height:34px;
+  border-radius:9px;display:inline-grid;place-items:center;font-size:15px;transition:.15s;flex-shrink:0}
+.iconbtn:hover{color:var(--tx);background:rgba(255,255,255,.12)}
+.devcard h3{display:flex;align-items:center;gap:10px}
+.devcard .role{font-size:.8rem;font-weight:800;color:var(--or2);text-transform:uppercase;letter-spacing:1px}
+ul.clean{list-style:none}
+ul.clean li{padding:7px 0 7px 26px;position:relative;color:var(--tx2);font-size:.93rem}
+ul.clean li::before{content:"→";position:absolute;left:2px;color:var(--or)}
+ul.clean li strong{color:var(--tx)}
+ol.steps{list-style:none;counter-reset:st}
+ol.steps li{counter-increment:st;padding:10px 0 10px 44px;position:relative;color:var(--tx2);font-size:.93rem;border-bottom:1px dashed var(--bor)}
+ol.steps li:last-child{border-bottom:0}
+ol.steps li::before{content:counter(st);position:absolute;left:0;top:8px;width:28px;height:28px;border-radius:9px;
+  background:rgba(255,122,60,.15);border:1px solid rgba(255,122,60,.4);color:var(--or2);font-weight:800;display:grid;place-items:center;font-size:.85rem}
+.timer{font-size:3rem;font-weight:800;text-align:center;font-variant-numeric:tabular-nums;letter-spacing:2px}
+.levelpick label{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--bor);border-radius:var(--rad2);margin-bottom:8px;cursor:pointer}
+.levelpick label:hover{border-color:var(--bor2)}
+.levelpick input{margin-top:4px;accent-color:var(--or)}
+footer{max-width:1080px;margin:0 auto;padding:30px 18px;color:var(--tx3);font-size:.8rem;text-align:center;border-top:1px solid var(--bor)}
+@media(max-width:640px){
+  main{padding:16px 12px 80px}
+  .card{padding:16px}
+  header{padding:10px 12px}
+  .hstats .stat{padding:5px 9px;font-size:.78rem}
+  .flash .front{font-size:1.5rem}
+  .gradebtns{grid-template-columns:repeat(2,1fr)}
+  .calgrid{grid-template-columns:repeat(10,1fr)}
+  nav{top:96px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><div class="ic">🎯</div><div>İngilizce <span class="grad">Komuta Merkezi</span></div></div>
+  <div class="hstats">
+    <div class="stat">🔥 <span class="v" id="hStreak">0</span> gün</div>
+    <div class="stat cyv">⚡ <span class="v" id="hXp">0</span> XP</div>
+    <div class="stat grv">🎖️ <span class="v" id="hRank">Çaylak</span></div>
+  </div>
+</header>
+
+<nav id="nav">
+  <button data-t="bugun" class="act">🏠 Bugün</button>
+  <button data-t="plan">🗺️ Yöntem & Plan</button>
+  <button data-t="konusma">🎙️ Konuşma</button>
+  <button data-t="dinleme">🎧 Dinleme & Dikte</button>
+  <button data-t="kelime">🃏 Kelime</button>
+  <button data-t="yazma">✍️ Yazma</button>
+  <button data-t="ai">🤖 AI Araçları</button>
+  <button data-t="cihaz">📱 Cihazlar</button>
+  <button data-t="ilerleme">📈 İlerleme</button>
+</nav>
+
+<main>
+  <section id="sec-bugun" class="act">
+    <div class="card hi" id="onboardCard" style="display:none">
+      <h2>👋 Hoş geldin Taylan!</h2>
+      <p class="lead">Burası senin kişisel İngilizce üssün. Her şey <strong>aktif öğrenme</strong> üzerine kurulu: izlemek yok, yapmak var. 3 adımda başla:</p>
+      <ol class="steps">
+        <li><strong>Seviyeni öğren.</strong> 2 dakikalık testi çöz, sana nereden başlayacağını söyleyeyim.</li>
+        <li><strong>Günlük süreni seç.</strong> Aşağıdan 30 / 60 / 90 dakika seç, görev listen ona göre kurulur.</li>
+        <li><strong>İlk görevini yap.</strong> Yeşil tik attıkça XP kazanırsın, seri (🔥) başlar.</li>
+      </ol>
+      <div class="btnrow" style="margin-top:12px">
+        <button class="btn primary" onclick="go('plan');document.getElementById('testCard').scrollIntoView()">🧪 Seviye testine git</button>
+      </div>
+    </div>
+
+    <div class="secthead">
+      <h2 id="todayTitle">Bugünün Görevleri</h2>
+      <div class="sub" id="todayDate"></div>
+    </div>
+
+    <div class="card">
+      <div class="btnrow" style="justify-content:space-between">
+        <div>
+          <strong>Bugün ne kadar zamanın var?</strong>
+          <div class="sub">Görev listesi seçimine göre kurulur. Az zaman varsa bile sıfır gün olmasın.</div>
+        </div>
+        <div class="pillrow" id="timePills" style="margin:0">
+          <div class="pill" data-m="30">⚡ 30 dk</div>
+          <div class="pill act" data-m="60">🎯 60 dk</div>
+          <div class="pill" data-m="90">🚀 90 dk</div>
+        </div>
+      </div>
+      <hr class="sep">
+      <div id="checklist"></div>
+      <div style="margin-top:14px">
+        <div style="display:flex;justify-content:space-between;font-size:.82rem;color:var(--tx2);margin-bottom:6px">
+          <span>Günlük ilerleme</span><span id="dayPct">0%</span>
+        </div>
+        <div class="pbar"><div id="dayBar" style="width:0%"></div></div>
+        <div class="sub" style="margin-top:8px">Hepsini bitirirsen <strong style="color:var(--yl)">+30 bonus XP</strong>. Seri için günde en az 30 XP yeter.</div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>⏱️ Pomodoro</h3>
+        <p class="sub" style="margin:4px 0 10px">25 dk odak + 5 dk mola. Tek oturuşta tek iş.</p>
+        <div class="timer" id="pomoTime">25:00</div>
+        <div class="sub" style="text-align:center;margin-bottom:12px" id="pomoPhase">Odak turu</div>
+        <div class="btnrow" style="justify-content:center">
+          <button class="btn primary" id="pomoBtn" onclick="pomoToggle()">▶ Başlat</button>
+          <button class="btn ghost" onclick="pomoReset()">↺ Sıfırla</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🚀 Hızlı Başlat</h3>
+        <p class="sub" style="margin:4px 0 10px">Düşünme, tıkla, başla.</p>
+        <div class="btnrow">
+          <button class="btn" onclick="go('kelime')">🃏 Kelime tekrarı <span class="tag or" id="qDue">0</span></button>
+          <button class="btn" onclick="go('konusma')">🎙️ Konuşma görevi</button>
+          <button class="btn" onclick="go('dinleme')">🎧 Dikte yap</button>
+          <button class="btn" onclick="go('yazma')">✍️ Günün yazısı</button>
+        </div>
+        <hr class="sep">
+        <div class="hint">💡 <div><strong>Günün taktiği:</strong> <span id="dailyTip"></span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-plan">
+    <div class="secthead">
+      <h2>Yöntem & Plan</h2>
+      <div class="sub">Önce sistemi anla, sonra seviyeni ölç, sonra 12 haftalık yola gir.</div>
+    </div>
+
+    <div class="card hi">
+      <h3>🧠 Sistemin Kalbi: "Konuş → Yakala → İşle → Tekrarla" Döngüsü</h3>
+      <p class="lead" style="margin-top:8px">Senin Gemini Live fikrin zaten doğruydu; ben onu tam bir sisteme çevirdim. Dil bilimciler buna <strong>output hypothesis</strong> der: dil, üretmeye zorlandığında öğrenilir. Döngü şu:</p>
+      <ol class="steps">
+        <li><strong>KONUŞ (15-20 dk):</strong> Telefonda Gemini Live'ı aç, buradaki "Koç Promptu"nu ver, seçtiğin senaryoyu oyna. Mükemmel konuşmaya çalışma — hata yapmak görevin parçası.</li>
+        <li><strong>YAKALA (5 dk):</strong> Konuşma biterken "finish session" de; Gemini sana 5 hatanı ve 5 faydalı kalıbı listelesin. Bunları buradaki <strong>Sohbet Defteri</strong>'ne yaz (Konuşma sekmesinde).</li>
+        <li><strong>İŞLE (5 dk):</strong> Yakaladığın kalıpları tek tıkla kelime kartına çevir. Artık onlar senin tekrar destende.</li>
+        <li><strong>TEKRARLA (ertesi gün):</strong> Kartlar tam unutacağın anda karşına çıkar (aralıklı tekrar). Ertesi konuşmada aynı kalıpları <strong>bilerek kullan</strong>. Kullanılan kalıp kalıcı olur.</li>
+      </ol>
+    </div>
+
+    <details>
+      <summary>🔬 Neden "izleyerek öğrenme" tek başına çalışmıyor?</summary>
+      <div class="inner">
+        <p>Dizi izlemek <strong>girdi (input)</strong> sağlar ve gereklidir; ama beyin, kendisinden çıktı istenmedikçe kelimeleri "pasif depo"da tutar. Tanırsın ama kullanamazsın. Buna <em>alıcı bilgi / üretici bilgi</em> farkı denir.</p>
+        <p>Araştırmanın net bulgusu: <strong>test etme etkisi (active recall)</strong> — bir bilgiyi hatırlamaya zorlanmak, onu tekrar görmekten kat kat güçlü iz bırakır. Bu yüzden bu sitedeki her araç senden bir şey <strong>üretmeni</strong> ister: yaz, söyle, hatırla, puanla.</p>
+        <p>İkinci bulgu: <strong>aralıklı tekrar (spaced repetition)</strong> — tekrarı unutma eşiğine yaymak. Kelime sekmesindeki kart sistemi bunu otomatik yapar: iyi bildiğin kart seyrekleşir, zorlandığın kart sıklaşır.</p>
+        <p>Üçüncüsü: <strong>anlaşılır girdi (comprehensible input)</strong> — seviyenin bir tık üstü içerik. Bu da var ama hep aktif görevle birleşik: dikte, gölgeleme (shadowing), tahmin etme.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>⚖️ Dengeli antrenman: 4 Kanal Kuralı (Paul Nation)</summary>
+      <div class="inner">
+        <p>Dil eğitimi araştırmacısı Paul Nation'a göre ideal program zamanı 4 eşit kanala böler. Günlük görev listen otomatik olarak bu dengeye göre kurulur:</p>
+        <ul class="clean">
+          <li><strong>1. Anlamlı girdi:</strong> dinleme + okuma (dikte, podcast, çift altyazılı video)</li>
+          <li><strong>2. Anlamlı çıktı:</strong> konuşma + yazma (Gemini Live, günlük yazı)</li>
+          <li><strong>3. Dil odaklı çalışma:</strong> kelime kartları, telaffuz, dilbilgisi farkındalığı</li>
+          <li><strong>4. Akıcılık geliştirme:</strong> BİLDİĞİN şeyleri hızlandırma (gölgeleme, aynı hikayeyi 3 kez anlatma)</li>
+        </ul>
+        <p style="margin-top:10px">En çok atlanan 4. kanaldır: yeni şey öğrenmek yok, bildiklerini otomatikleştirmek var. Akıcılık oradan gelir.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>📜 Demir Kurallar (bunlara uyarsan başaramaman imkânsız)</summary>
+      <div class="inner">
+        <ul class="clean">
+          <li><strong>Sıfır gün yok.</strong> 5 dakikalık kelime tekrarı bile günü kurtarır. Seri psikolojisi en güçlü silahın.</li>
+          <li><strong>Hata = veri.</strong> Her hata, ertesi günün kartı. Hatasız gün, öğrenmesiz gündür.</li>
+          <li><strong>Sesli çalış.</strong> İçinden okumak konuşma kasını çalıştırmaz. Bu yüzden ev/oda fark etmez, sesli söyle.</li>
+          <li><strong>Az araç, derin kullanım.</strong> 15 uygulama indirip kaybolma: Gemini Live + bu site + ELSA + AnkiDroid yeter.</li>
+          <li><strong>Türkçe düşünüp çevirme.</strong> Kalıp öğren ("I'm looking forward to..."), kalıbı doldur. Site bu yüzden kelime değil kalıp ağırlıklı.</li>
+          <li><strong>Haftada 1 gün insanla konuş.</strong> AI sabırlıdır ama gerçek insan baskısı ayrı kas çalıştırır (HelloTalk/Discord).</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="card cyb" id="testCard">
+      <h3>🧪 Seviye Testi</h3>
+      <p class="sub" style="margin:4px 0 12px">12 soru, ~2 dakika. Sonuca göre plan sana nereden başlayacağını söyler. Bilmediğini boş bırak, tahmin etme — amaç gerçek seviyeni bulmak.</p>
+      <div id="testBody"></div>
+    </div>
+
+    <div class="secthead" style="margin-top:26px">
+      <h3>🗺️ 12 Haftalık Yol Haritası (A1 → B1)</h3>
+      <div class="sub" id="planHint">Testi çözersen başlangıç haftanı işaretlerim. Her hafta: 1 dilbilgisi odağı + 1 konuşma görevi + 20 kelime + 1 final görevi.</div>
+    </div>
+    <div id="planList"></div>
+  </section>
+  <section id="sec-konusma">
+    <div class="secthead">
+      <h2>Konuşma Stüdyosu</h2>
+      <div class="sub">Günün ana antrenmanı burası: senaryo seç → Gemini Live ile oyna → defterine yakala → karta çevir.</div>
+    </div>
+
+    <div class="card hi">
+      <h3>👑 Koç Promptu — Gemini Live'a bunu ver</h3>
+      <p class="sub" style="margin:6px 0 4px">Telefonda Gemini'yi aç, Live moduna geç ve önce bu metni yapıştır (veya oku). Gemini'yi sıradan sohbetten gerçek bir İngilizce koçuna çevirir. <strong>[A2]</strong> kısmını kendi seviyenle değiştir.</p>
+      <div class="promptbox" id="coachPrompt">You are my English speaking coach. My level is [A2]. Follow these rules strictly:
+1. Speak slowly and use simple, common words.
+2. Ask me ONE question at a time, then wait for my answer.
+3. When I make a mistake, let me finish first. Then say "Quick tip:" and correct it in one short sentence. Then continue the conversation naturally.
+4. Every few minutes, give me a mini challenge: ask me to describe something or tell a short story.
+5. Never speak Turkish unless I say "help in Turkish".
+6. If I give a very short answer, push me: ask "why?" or "tell me more".
+7. When I say "finish session", list: my 5 most important mistakes (with corrections) and 5 useful phrases I should learn, numbered.
+Let's start: greet me and ask about my day.<button class="btn small cyan copybtn" onclick="copyText('coachPrompt')">📋 Kopyala</button></div>
+      <div class="hint">💡 <div>Konuşurken telefonu masaya koy, Legion Go'da (veya bu sayfada) <strong>Sohbet Defteri</strong>'ni aç. Duyduğun her yeni kalıbı anında yaz — senin "klavyeyle not alma" fikrin tam olarak bu ve çok doğru bir refleks.</div></div>
+    </div>
+
+    <div class="card">
+      <h3>🎭 Görev Senaryoları</h3>
+      <p class="sub" style="margin:4px 0 8px">Her senaryo: hedef + 5 hazır kalıp + Gemini'ye verilecek başlatma promptu. Önce kalıpları sesli oku, sonra senaryoyu oyna.</p>
+      <div class="pillrow" id="scenPills">
+        <div class="pill act" data-lv="A1">A1 Temel</div>
+        <div class="pill" data-lv="A2">A2 Gelişen</div>
+        <div class="pill" data-lv="B1">B1 Akıcı</div>
+      </div>
+      <div id="scenList"></div>
+    </div>
+
+    <div class="card cyb">
+      <h3>🗣️ Gölgeleme (Shadowing) Stüdyosu</h3>
+      <p class="sub" style="margin:6px 0 10px">Akıcılık ve telaffuzun en hızlı yolu: cümleyi dinle → <strong>aynı anda / hemen ardından sesli tekrar et</strong> → söylediğini yaz(dır) → puanını gör. Sırayla 10 cümle yap, +15 XP.</p>
+      <div class="pillrow" id="shLvPills">
+        <div class="pill act" data-lv="A1">A1</div><div class="pill" data-lv="A2">A2</div><div class="pill" data-lv="B1">B1</div>
+      </div>
+      <div class="flash" style="min-height:140px">
+        <div class="front" id="shSent" style="font-size:1.3rem">—</div>
+        <div class="lvtag tag a1" id="shTag">A1</div>
+      </div>
+      <div class="btnrow" style="margin-bottom:12px">
+        <button class="btn cyan" onclick="shPlay()">🔊 Dinle</button>
+        <button class="btn ghost" onclick="shPlay(0.7)">🐢 Yavaş dinle</button>
+        <button class="btn ghost" onclick="shNext()">↻ Yeni cümle</button>
+        <span class="sub">Tekrar sayın: <span id="shDone">0</span>/10</span>
+      </div>
+      <label class="lbl">Şimdi sesli söyle ve söylediğini buraya yaz(dır)</label>
+      <input class="input" id="shInput" placeholder="Mikrofonla yazdır veya klavyeyle yaz..." autocomplete="off">
+      <div class="btnrow" style="margin-top:10px">
+        <button class="btn primary" onclick="shCheck()">✅ Puanla</button>
+        <button class="btn" id="shMicBtn" style="display:none" onclick="shMic()">🎤 Mikrofonla söyle</button>
+      </div>
+      <div class="hint" id="micHint" style="margin-top:10px">🎤 <div><strong>Sesle yazdırma:</strong> Windows'ta kutuya tıkla + <span class="kbd">Win</span>+<span class="kbd">H</span> → İngilizce konuş. Telefonda Gboard'un mikrofon tuşunu kullan (dil: English). Yazıya dökülen = senin telaffuzunun aynası.</div></div>
+      <div id="shResult"></div>
+    </div>
+
+    <div class="card">
+      <h3>📓 Sohbet Defteri</h3>
+      <p class="sub" style="margin:4px 0 10px">Gemini Live konuşmalarının hasat alanı. Yakaladığın kalıpları buraya at; tek tıkla kelime kartına dönüşsün.</p>
+      <div class="grid2">
+        <div>
+          <label class="lbl">Konuşma notların (kalıplar, hatalar, düzeltmeler)</label>
+          <textarea class="textarea" id="convoText" placeholder="Örn:&#10;✗ I am agree → ✓ I agree&#10;yeni kalıp: It depends on...&#10;barista 'for here or to go?' dedi"></textarea>
+          <div class="btnrow" style="margin-top:10px">
+            <button class="btn green" onclick="saveConvo()">💾 Oturumu kaydet (+20 XP)</button>
+          </div>
+        </div>
+        <div>
+          <label class="lbl">Hızlı kart ekle (yakaladığın kalıbı destene gönder)</label>
+          <input class="input" id="qcEn" placeholder="İngilizce kalıp — örn: It depends on..." style="margin-bottom:8px">
+          <input class="input" id="qcTr" placeholder="Türkçesi — örn: ...e bağlı" style="margin-bottom:8px">
+          <button class="btn cyan" onclick="quickCard()">➕ Karta çevir</button>
+          <hr class="sep">
+          <div class="sub">Kayıtlı oturum: <strong id="convoCount">0</strong> · Son oturumlar aşağıda</div>
+          <div id="convoList" style="margin-top:8px;max-height:200px;overflow-y:auto"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-dinleme">
+    <div class="secthead">
+      <h2>Dinleme & Dikte</h2>
+      <div class="sub">Pasif izleme yasak — burada her dinlediğini yazıya dökersin. Kulak böyle açılır.</div>
+    </div>
+
+    <div class="card cyb">
+      <h3>✍️ Dikte Antrenmanı</h3>
+      <p class="sub" style="margin:6px 0 10px">Cümleyi dinle (istediğin kadar), duyduğunu harfi harfine yaz, farkları gör. Günde 5 cümle = +15 XP. Kulağını en hızlı keskinleştiren araç budur.</p>
+      <div class="pillrow" id="dcLvPills">
+        <div class="pill act" data-lv="A1">A1</div><div class="pill" data-lv="A2">A2</div><div class="pill" data-lv="B1">B1</div>
+      </div>
+      <div class="btnrow" style="margin:8px 0 12px">
+        <button class="btn cyan" onclick="dcPlay()">🔊 Dinle</button>
+        <button class="btn ghost" onclick="dcPlay(0.65)">🐢 Yavaş</button>
+        <button class="btn ghost" onclick="dcNew()">↻ Yeni cümle</button>
+        <span class="sub">Dinleme: <span id="dcPlays">0</span> kez · Bugün: <span id="dcDone">0</span>/5</span>
+      </div>
+      <input class="input" id="dcInput" placeholder="Duyduğunu buraya yaz..." autocomplete="off">
+      <div class="btnrow" style="margin-top:10px">
+        <button class="btn primary" onclick="dcCheck()">✅ Kontrol et</button>
+        <button class="btn ghost" onclick="dcReveal()">👁️ Cevabı göster</button>
+      </div>
+      <div id="dcResult"></div>
+    </div>
+
+    <div class="card">
+      <h3>📺 Aktif İzleme Protokolü</h3>
+      <p class="sub" style="margin:4px 0 10px">Dizi/YouTube izlemek serbest — ama şu kurallarla "aktif"e çevrilirse:</p>
+      <details>
+        <summary>🎬 Netflix / YouTube + Language Reactor (Legion Go'da)</summary>
+        <div class="inner">
+          <p><strong>Kurulum:</strong> Legion Go'da Chrome (veya Edge) tarayıcısına <strong>Language Reactor</strong> eklentisini kur (ücretsiz sürümü aylarca yeter). Netflix/YouTube'da çift altyazı açılır: üstte İngilizce, altta Türkçe.</p>
+          <p><strong>Aktif kullanım — "Cümle Avı" tekniği:</strong></p>
+          <ul class="clean">
+            <li><strong>Auto-pause modunu aç:</strong> her cümlede video durur. Cümleyi önce SEN sesli tekrar et, sonra devam.</li>
+            <li><strong>Tahmin oyunu:</strong> Türkçe altyazıyı kapat, cümleyi dinle, anlamı tahmin et, sonra tıklayıp kontrol et.</li>
+            <li><strong>Bölüm başına 5 kalıp avla</strong> ve bu sitenin Sohbet Defteri'nden kartlaştır. 5'i bulunca serbest izlemeye geçebilirsin.</li>
+          </ul>
+          <p style="margin-top:8px"><strong>Ne izlemeli (A2 için):</strong> daha önce Türkçe izlediğin bir diziyi İngilizce tekrar izlemek = bedava anlaşılır girdi. Animasyonlar ve sitcom'lar (kısa cümle, net telaffuz) ideal başlangıç.</p>
+        </div>
+      </details>
+      <details>
+        <summary>🎧 Podcast protokolü (yürürken / yolda)</summary>
+        <div class="inner">
+          <p><strong>Başlangıç için:</strong> öğrenciler için yavaşlatılmış İngilizce yayınlar (örn. BBC Learning English "6 Minute English", VOA Learning English). Normal podcast B1+'ta.</p>
+          <p><strong>Aktif kullanım:</strong> 1 dakika dinle → durdur → duyduklarını 2 cümleyle SESLİ özetle (İngilizce) → devam et. Buna <em>pause-and-summarize</em> denir; pasif dinlemeyi antrenmana çevirir.</p>
+          <p><strong>Saatinden:</strong> Galaxy Watch'a kulaklık bağlıyken podcast kontrolü bilekten — yürüyüş rotan artık derslik.</p>
+        </div>
+      </details>
+      <details>
+        <summary>🎮 Oyunla öğrenme (Bazzite tarafı)</summary>
+        <div class="inner">
+          <p>Legion Go'nun asıl gücü bu: oyun dilini <strong>İngilizce ses + İngilizce altyazıya</strong> çevir. Okuma+dinleme aynı anda, bağlam içinde.</p>
+          <ul class="clean">
+            <li><strong>Kolay metinli oyunlar:</strong> Stardew Valley, Firewatch, Life is Strange, Unpacking — kısa, günlük dil.</li>
+            <li><strong>Bol diyaloglu (B1+):</strong> hikaye ağırlıklı RPG'ler. (Disco Elysium efsanedir ama C1 metnidir, kendine işkence etme.)</li>
+            <li><strong>Aktif görev:</strong> oyun seansından sonra 2 dakika boyunca SESLİ anlat: "Today in the game, I..." — geçmiş zaman pratiği bedava.</li>
+            <li><strong>Discord:</strong> oynadığın oyunun İngilizce sunucusuna gir; önce yazılı sohbet, cesaret gelince sesli kanal.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+  <section id="sec-kelime">
+    <div class="secthead">
+      <h2>Kelime Antrenörü</h2>
+      <div class="sub">Aralıklı tekrar (SRS): kartlar tam unutacağın gün karşına çıkar. İçinde 220+ hazır kelime ve konuşma kalıbı var; kendi yakaladıklarını da eklersin.</div>
+    </div>
+
+    <div class="statgrid" style="margin-bottom:16px">
+      <div class="card"><div class="bignum" style="color:var(--or2)" id="kvDue">0</div><div class="lab">Bugün tekrar</div></div>
+      <div class="card"><div class="bignum" style="color:var(--cy)" id="kvNew">0</div><div class="lab">Yeni kart hakkı</div></div>
+      <div class="card"><div class="bignum" style="color:var(--gr)" id="kvLearned">0</div><div class="lab">Öğrenildi (21g+)</div></div>
+      <div class="card"><div class="bignum" style="color:var(--pu)" id="kvTotal">0</div><div class="lab">Toplam kart</div></div>
+    </div>
+
+    <div class="card hi" id="srsArea">
+      <div class="btnrow" style="justify-content:space-between">
+        <h3>🃏 Tekrar Seansı</h3>
+        <div class="pillrow" style="margin:0">
+          <div class="pill act" id="modeFlip" onclick="setKMode('flip')">Kart çevir</div>
+          <div class="pill" id="modeType" onclick="setKMode('type')">Yazarak (zor mod)</div>
+        </div>
+      </div>
+      <div id="srsBody"></div>
+    </div>
+
+    <div class="card">
+      <h3>➕ Yeni Kart Ekle</h3>
+      <div class="grid3" style="margin-top:10px">
+        <input class="input" id="ncEn" placeholder="İngilizce (kalıp/kelime)">
+        <input class="input" id="ncTr" placeholder="Türkçe anlamı">
+        <input class="input" id="ncEx" placeholder="Örnek cümle (opsiyonel)">
+      </div>
+      <div class="btnrow" style="margin-top:10px">
+        <button class="btn primary" onclick="addCustomCard()">Ekle</button>
+        <span class="sub">İpucu: tek kelime yerine kalıp ekle — "run" değil, "run out of time".</span>
+      </div>
+    </div>
+
+    <details>
+      <summary>📚 Deste Gezgini (tüm kartları gör)</summary>
+      <div class="inner">
+        <div class="pillrow" id="deckPills">
+          <div class="pill act" data-f="all">Hepsi</div>
+          <div class="pill" data-f="A1">A1</div>
+          <div class="pill" data-f="A2">A2</div>
+          <div class="pill" data-f="B1">B1</div>
+          <div class="pill" data-f="P">Konuşma kalıpları</div>
+          <div class="pill" data-f="C">Benim eklediklerim</div>
+        </div>
+        <input class="input" id="deckSearch" placeholder="Ara..." oninput="renderDeck()" style="margin-bottom:10px">
+        <div id="deckList" style="max-height:380px;overflow-y:auto"></div>
+      </div>
+    </details>
+
+    <details>
+      <summary>💾 Yedekle / Taşı (telefon ↔ Legion Go)</summary>
+      <div class="inner">
+        <p>Verilerin (kartlar, XP, seri, günlükler) bu tarayıcıda saklanır. Başka cihaza taşımak veya yedeklemek için:</p>
+        <div class="btnrow">
+          <button class="btn" onclick="exportData()">⬇️ Yedeği indir (.json)</button>
+          <label class="btn ghost" style="cursor:pointer">⬆️ Yedek yükle<input type="file" accept=".json" style="display:none" onchange="importData(event)"></label>
+        </div>
+        <p class="sub" style="margin-top:8px">Bu HTML dosyasını telefonuna da kopyalayabilirsin (Chrome ile aç) — yedek dosyasıyla ilerlemeni taşırsın.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="sec-yazma">
+    <div class="secthead">
+      <h2>Yazma Atölyesi</h2>
+      <div class="sub">Günde 5-10 cümle yaz, AI'ya düzelttir, hatalarını karta çevir. Yazma, konuşmanın yavaş çekim antrenmanıdır.</div>
+    </div>
+
+    <div class="card hi">
+      <div class="btnrow" style="justify-content:space-between">
+        <h3>✍️ Günün Görevi</h3>
+        <button class="btn small ghost" onclick="newWritePrompt()">↻ Başka görev ver</button>
+      </div>
+      <p class="lead" id="writePrompt" style="margin-top:10px">—</p>
+      <textarea class="textarea" id="writeText" placeholder="Buraya İngilizce yaz... (hedef: en az 40 kelime — yaklaşık 5 cümle)" oninput="wCount()"></textarea>
+      <div style="display:flex;justify-content:space-between;margin-top:8px" class="sub">
+        <span id="wWords">0 kelime</span><span id="wGoal">Hedef: 40+</span>
+      </div>
+      <div class="btnrow" style="margin-top:10px">
+        <button class="btn green" onclick="saveWriting()">💾 Kaydet (+20 XP)</button>
+        <button class="btn cyan" onclick="copyCorrection()">📋 Düzeltme promptuyla kopyala</button>
+      </div>
+      <div class="hint" style="margin-top:12px">🤖 <div>"Düzeltme promptuyla kopyala"ya bas → Gemini/ChatGPT'ye yapıştır. Sana hata tablosu (hata → doğrusu → Türkçe açıklama) verir. <strong>Her hatayı kelime kartına çevir</strong> — döngü tamamlanır.</div></div>
+    </div>
+
+    <details>
+      <summary>📜 Geçmiş yazıların (<span id="jCount">0</span>)</summary>
+      <div class="inner"><div id="journalList"></div></div>
+    </details>
+
+    <details>
+      <summary>🧰 Yazma taktikleri</summary>
+      <div class="inner">
+        <ul class="clean">
+          <li><strong>Önce kötü yaz.</strong> İlk taslakta sözlük yasak — bilmediğin kelimeyi basit kelimelerle anlat. Sonra AI'dan "daha doğal nasıl denir?" iste. Aradaki fark, senin öğrenme listendir.</li>
+          <li><strong>Aynı konuyu 3 gün yaz.</strong> 1. gün serbest, 2. gün düzeltmeleri uygulayarak, 3. gün hiç bakmadan. Akıcılık kanalı çalışır.</li>
+          <li><strong>Klavyenin otomatik düzeltmesini kapat</strong> (telefonda yazıyorsan). Hatanı klavye değil, sen yakalamalısın.</li>
+          <li><strong>WhatsApp/Telegram'da kendine bir "English" sohbeti aç:</strong> gün içinde aklına gelen cümleleri oraya at, akşam toplu düzelttir.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+  <section id="sec-ai">
+    <div class="secthead">
+      <h2>AI Araç Cephaneliği</h2>
+      <div class="sub">Az araç, derin kullanım. Çekirdek set 4 araçtır; gerisi takviye.</div>
+    </div>
+
+    <div class="card hi">
+      <h3>⭐ Çekirdek Set (hepsi ücretsiz başlar)</h3>
+      <table class="simple" style="margin-top:10px">
+        <tr><th>Araç</th><th>Ne işe yarar</th><th>Cihaz</th><th>Günlük doz</th></tr>
+        <tr><td><strong>Gemini Live</strong></td><td>Sınırsız, sabırlı konuşma partneri. Ücretsiz, gerçek zamanlı sesli sohbet. Puanlama yapmaz — o yüzden Koç Promptu ile düzeltme istetiyoruz.</td><td>S23 Ultra</td><td>15-20 dk</td></tr>
+        <tr><td><strong>Bu site</strong></td><td>Plan, kelime SRS, dikte, gölgeleme, yazma, ilerleme — komuta merkezi.</td><td>Hepsi</td><td>20-30 dk</td></tr>
+        <tr><td><strong>ELSA Speak</strong></td><td>Telaffuzu ses-ses (fonem) bazında puanlayan AI. Gemini'nin yapamadığı tek şey. Ücretsiz katmanı günlük dersler için yeter; "Speech Analyzer" web aracı da serbest konuşmanı analiz eder.</td><td>S23 Ultra</td><td>10 dk</td></tr>
+        <tr><td><strong>Language Reactor</strong></td><td>Netflix/YouTube'a çift altyazı + tıkla-çevir + otomatik duraklatma. Sadece masaüstü Chrome/Edge — yani Legion Go işi.</td><td>Legion Go</td><td>İzleme günleri</td></tr>
+      </table>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>🧩 Takviye Araçlar</h3>
+        <ul class="clean">
+          <li><strong>ChatGPT Voice:</strong> Gemini Live'a alternatif sesli partner; ücretsiz kotası sınırlı. İki ayrı "hoca" ile konuşmak iyi çeşitliliktir.</li>
+          <li><strong>AnkiDroid (Android) / Anki (Windows):</strong> Bu sitedeki SRS sana yetmemeye başlarsa (günde 50+ kart) profesyonel lige geç. Language Reactor'dan dışa aktarımı da destekler.</li>
+          <li><strong>HelloTalk / Tandem:</strong> Gerçek insanlarla dil takası — sen Türkçe öğret, onlar İngilizce. Haftada 1 seans, B1 yolunda şart.</li>
+          <li><strong>YouGlish:</strong> Bir kelimenin gerçek videolarda nasıl söylendiğini gösterir (youglish.com) — "schedule" gibi kelimelerde birebir.</li>
+          <li><strong>BBC Learning English / VOA Learning English:</strong> Yavaşlatılmış, seviyeli podcast ve videolar. "6 Minute English" ile başla.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🚫 Zaman Tuzakları (bunlara kaçma)</h3>
+        <ul class="clean">
+          <li><strong>Sadece Duolingo ile yetinmek:</strong> Alışkanlık kurmak için fena değil ama konuşma kası yapmaz; sendeki hedef için ana yemek olamaz, olsa olsa atıştırmalık.</li>
+          <li><strong>Uygulama koleksiyonculuğu:</strong> 10 uygulama indirip hiçbirinde derinleşmemek. Çekirdek set + maksimum 1-2 takviye.</li>
+          <li><strong>Pasif YouTube maratonu:</strong> "İngilizce öğreten video" izlemek öğrenmek değildir. Video başına 1 görev çıkar: 5 kalıp + sesli özet.</li>
+          <li><strong>Gramer kitabında kaybolmak:</strong> Gramer, konuşurken hata yapınca öğrenilir; önce konuş, sonra kuralına bak.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📚 Prompt Kütüphanesi</h3>
+      <p class="sub" style="margin:4px 0 8px">Kopyala → Gemini/ChatGPT'ye yapıştır. Her biri ayrı bir antrenman türü açar.</p>
+
+      <details><summary>🎭 Rol yapma başlatıcı (her senaryoya uyarlanır)</summary><div class="inner">
+        <div class="promptbox" id="p1">Let's do a roleplay to practice my English (level A2). You are [a barista in a busy London coffee shop]. I am [a customer]. Rules: speak slowly, stay in character, reply in 1-2 short sentences, and ask me questions to keep it going. If I make a big mistake, give me a one-line "Quick tip" then continue. Start the scene now.<button class="btn small cyan copybtn" onclick="copyText('p1')">📋</button></div>
+      </div></details>
+
+      <details><summary>🔧 Yazı düzeltici (hata tablosu + Türkçe açıklama)</summary><div class="inner">
+        <div class="promptbox" id="p2">Act as my English teacher. Below is my text. 1) Correct it. 2) Make a table: my mistake → correction → short explanation IN TURKISH. 3) Rewrite my text in natural English at my level (A2), not fancy English. 4) Give me 3 useful phrases I could have used.
+
+My text: [BURAYA YAZINI YAPIŞTIR]<button class="btn small cyan copybtn" onclick="copyText('p2')">📋</button></div>
+      </div></details>
+
+      <details><summary>⛏️ Kelime madencisi (ilgi alanından kalıp çıkarır)</summary><div class="inner">
+        <div class="promptbox" id="p3">Give me 10 natural English phrases (not single words) about [gaming / topic]. For each: the phrase, Turkish meaning, one example sentence at A2 level. Then quiz me one by one: say the Turkish, I'll answer in English. Correct me strictly.<button class="btn small cyan copybtn" onclick="copyText('p3')">📋</button></div>
+      </div></details>
+
+      <details><summary>🗣️ Gölgeleme metni üretici (60 saniyelik monolog)</summary><div class="inner">
+        <div class="promptbox" id="p4">Write a 60-second monologue (about 90 words) at A2 level about [my daily routine]. Use simple, natural spoken English with common phrases. Short sentences. I will use it for shadowing practice. Then list the 5 most useful phrases from it with Turkish meanings.<button class="btn small cyan copybtn" onclick="copyText('p4')">📋</button></div>
+      </div></details>
+
+      <details><summary>🎯 Telaffuz hedef listesi (Türklere özel)</summary><div class="inner">
+        <div class="promptbox" id="p5">I am a Turkish speaker learning English. List the 10 most common pronunciation mistakes Turkish speakers make (like th, w/v, silent letters). For each: example words, what Turks usually say wrong, and a short drill sentence I can repeat. Keep it practical.<button class="btn small cyan copybtn" onclick="copyText('p5')">📋</button></div>
+      </div></details>
+
+      <details><summary>🧪 Haftalık seviye ölçümü</summary><div class="inner">
+        <div class="promptbox" id="p6">Interview me in English for 5 minutes to estimate my CEFR level. Ask progressively harder questions (daily life → opinions → hypotheticals). Then give me: your level estimate, my 3 strongest points, my 3 weakest points, and one specific thing to practice next week.<button class="btn small cyan copybtn" onclick="copyText('p6')">📋</button></div>
+      </div></details>
+
+      <details><summary>🔁 Dünün kartlarıyla sınav (aktif tekrar)</summary><div class="inner">
+        <div class="promptbox" id="p7">Here are phrases I learned recently: [KALIPLARINI YAPIŞTIR]. Quiz me actively: 1) Ask me to use each one in my own sentence. 2) Then create a short dialogue with gaps where these phrases fit, and make me fill them. Don't accept short yes/no answers. Correct me in one line each time.<button class="btn small cyan copybtn" onclick="copyText('p7')">📋</button></div>
+      </div></details>
+
+      <details><summary>📖 Gramer dersi (Türkçe anlatımlı, alıştırmalı)</summary><div class="inner">
+        <div class="promptbox" id="p8">Explain [present perfect] to me in Turkish, simply, with the 3 most common real-life uses and example sentences (English + Turkish). Then give me 5 fill-in-the-blank exercises one by one. Check each answer before giving the next. Finally, make me write 3 of my own sentences and correct them.<button class="btn small cyan copybtn" onclick="copyText('p8')">📋</button></div>
+      </div></details>
+    </div>
+  </section>
+
+  <section id="sec-cihaz">
+    <div class="secthead">
+      <h2>Cihaz Stratejin</h2>
+      <div class="sub">Üç cihaz, üç ayrı rol. Hepsi aynı hedefe çalışır: günde 60-90 dakika aktif İngilizce.</div>
+    </div>
+
+    <div class="card devcard">
+      <div class="role">Rol: Konuşma Makinesi</div>
+      <h3>📱 Samsung Galaxy S23 Ultra</h3>
+      <p class="sub" style="margin:6px 0 10px">Günün ana antrenmanı bu cihazda döner: sesli sohbet + telaffuz + cepte tekrar.</p>
+      <details><summary>🎙️ Gemini Live kurulumu (ana silah)</summary><div class="inner">
+        <ol class="steps">
+          <li>Gemini uygulamasını aç (yan tuşa basılı tutarak da çağırabilirsin; yan tuş ayarlardan Gemini'ye atanabilir).</li>
+          <li>Sağ alttaki dalga simgesiyle <strong>Live</strong> moduna geç — kesintisiz sesli sohbet açılır.</li>
+          <li>Konuşma sekmesindeki <strong>Koç Promptu</strong>'nu söyle/yapıştır. Artık karşında hoca var.</li>
+          <li>Kulaklıkla konuş (yürürken bile olur). Bitirirken "finish session" demeyi unutma — hata listen raporlanır.</li>
+          <li>Rapordaki kalıpları Sohbet Defteri'ne, oradan kartlara aktar. Döngü kapandı.</li>
+        </ol>
+      </div></details>
+      <details><summary>🎤 Gizli silah: Samsung Kayıt + yazıya dökme</summary><div class="inner">
+        <p>Ses Kaydedici uygulamasının <strong>yazıya dökme (transcribe)</strong> özelliği telaffuz aynasıdır: dili English yap, 1 dakika serbest konuş (günlük anlat), yazıya dök. Yazı, söylediğini sandığın şeyle örtüşmüyorsa hangi kelimelerin yanlış çıktığını gördün demektir — onlar senin ELSA çalışma listen.</p>
+        <p>Aynı mantık Gboard sesle yazma ile de çalışır: bu sitenin gölgeleme aracında mikrofonla yazdırırken aslında telaffuz testi yapıyorsun.</p>
+      </div></details>
+      <details><summary>🌐 Galaxy AI özellikleri (S23 Ultra'da var)</summary><div class="inner">
+        <ul class="clean">
+          <li><strong>Interpreter / Çevirmen modu:</strong> ters kullan — İngilizce konuş, Türkçe çevirisine bak: demek istediğin bu muydu? Anında geri bildirim.</li>
+          <li><strong>Chat Assist (Klavye AI):</strong> İngilizce mesaj yazarken tonunu düzelttir; ama önce kendin yaz, sonra karşılaştır. Fark = ders.</li>
+          <li><strong>S Pen:</strong> günün 5 kalıbını elle yaz (Samsung Notes). El yazısı, motor hafıza sayesinde ekstra iz bırakır.</li>
+        </ul>
+      </div></details>
+      <details><summary>📲 Telefon düzeni</summary><div class="inner">
+        <ul class="clean">
+          <li>Ana ekrana bir "English" klasörü: Gemini, ELSA, AnkiDroid (istersen), HelloTalk, bu sitenin kısayolu (Chrome → menü → Ana ekrana ekle).</li>
+          <li>Telefonun sistem dilini İngilizce yap — günde yüz kez bedava mini tekrar. (Cesursan!)</li>
+          <li>Rutin saatine 2 alarm: "🎙️ Gemini 15dk" ve "🃏 Kartlar 10dk".</li>
+        </ul>
+      </div></details>
+    </div>
+
+    <div class="card devcard">
+      <div class="role">Rol: Daldırma İstasyonu</div>
+      <h3>🎮 Lenovo Legion Go (Bazzite + Windows)</h3>
+      <p class="sub" style="margin:6px 0 10px">Büyük ekran işleri: oyunla daldırma, çift altyazılı izleme, bu sitede masa başı antrenman.</p>
+      <details><summary>🐧 Bazzite tarafı (günlük kullanım)</summary><div class="inner">
+        <ul class="clean">
+          <li><strong>Oyun dili = İngilizce ses + İngilizce altyazı.</strong> Steam → oyun → Properties → Language. En etkili daldırma yöntemin bu.</li>
+          <li><strong>Masaüstü moduna geç</strong> (Desktop Mode) → uygulama mağazasından (Flathub) <strong>Chrome</strong> veya Edge kur → Language Reactor eklentisini ekle → Netflix/YouTube artık derslik.</li>
+          <li>Bu siteyi Chrome'da aç; gölgeleme/dikte için ses çalışır. (Firefox'ta ses tanıma kısıtlı, Chrome kullan. Sesli yazdırma gerekirse en pratiği telefondan.)</li>
+          <li>Oyun sonrası ritüel: 2 dakika sesli "Today in the game..." özeti. Kulaklık mikrofonuyla Gemini'ye anlat, düzelttir.</li>
+        </ul>
+      </div></details>
+      <details><summary>🪟 Windows tarafı (yedek ama görevli)</summary><div class="inner">
+        <ul class="clean">
+          <li><strong>Neden silme:</strong> Bazzite'nin resmi dokümanı bile BIOS ve kumanda firmware güncellemelerini Windows'tan (Legion Space/Lenovo araçları) yapmayı öneriyor. Ayrıca anti-cheat'li oyunlar (Valorant vb.) sadece Windows'ta çalışır. Windows = servis bölümün.</li>
+          <li><strong>İngilizce görevi:</strong> Anki masaüstü (istersen) + <span class="kbd">Win</span>+<span class="kbd">H</span> sesle yazdırma bu sitede çok iyi çalışır (dil paketine İngilizce konuşmayı ekle: Ayarlar → Zaman ve dil → Konuşma).</li>
+          <li>Ayda 1 kez gir: güncellemeleri al, firmware kontrol et, çık.</li>
+        </ul>
+      </div></details>
+      <details><summary>🧹 Windows temizlik rehberi (güvenli sıra)</summary><div class="inner">
+        <ol class="steps">
+          <li><strong>Geri yükleme noktası oluştur.</strong> Başlat'a "geri yükleme noktası" yaz → Oluştur. Her şeyden önce bu.</li>
+          <li><strong>Uygulamaları ele:</strong> Ayarlar → Uygulamalar → Yüklü uygulamalar. Oyun/üretici yazılımları (Legion Space!) ve sürücüler HARİÇ kullanmadıklarını kaldır (deneme antivirüsleri, Office tanıtımları, oyun çöpleri).</li>
+          <li><strong>Başlangıcı boşalt:</strong> Görev Yöneticisi (<span class="kbd">Ctrl</span>+<span class="kbd">Shift</span>+<span class="kbd">Esc</span>) → Başlangıç uygulamaları → ihtiyaç dışı her şeyi devre dışı bırak.</li>
+          <li><strong>Disk temizliği:</strong> Ayarlar → Sistem → Depolama → Temizleme önerileri + "Geçici dosyalar"da Windows Update kalıntılarını sil. Storage Sense'i aç.</li>
+          <li><strong>Derin temizlik (istersen):</strong> <strong>Win11Debloat</strong> (GitHub, Raphire) script'ini varsayılan/önerilen modda çalıştır — gereksiz uygulama ve telemetriyi toplu kapatır, geri alınabilir. Gizlilik ayarları için <strong>O&O ShutUp10++</strong> (önerilen profil). Agresif modlara girme; Store, Defender, Edge ve sürücülere dokunma.</li>
+          <li><strong>OneDrive eşitlemesini kapat</strong> (kullanmıyorsan) ve görsel efektleri "performans" moduna al. Bu kadar — Windows artık hafif, sessiz bir servis bölümü.</li>
+        </ol>
+        <div class="hint warn">⚠️ <div>BIOS güncellemesinden sonra Secure Boot açıksa Bazzite anahtarını yeniden kaydetmen gerekebilir (önyüklemede sorulan ekran). Bilmediğin ayarı kapatma; bu rehberin dışına çıkma ihtiyacın yok.</div></div>
+      </div></details>
+    </div>
+
+    <div class="card devcard">
+      <div class="role">Rol: Alışkanlık Tetikleyici</div>
+      <h3>⌚ Galaxy Watch</h3>
+      <p class="sub" style="margin:6px 0 10px">Saat ders çalışma yeri değil, seni derse çağıran zil ve mikro-antrenman aracı.</p>
+      <details><summary>🤖 Bilekte Gemini</summary><div class="inner">
+        <p>Wear OS 4+ saatlerde Google Asistan'ın yerini <strong>Gemini</strong> aldı (Play Store'dan saat için indirilebilir). Kullanım: yan tuşa basılı tut → İngilizce sor: <em>"How do I say 'kolay gelsin' in English?"</em>, <em>"Give me one English phrase about cooking."</em> Günde 5 mikro soru = 5 mikro ders. Cevabı duyunca sesli tekrar et.</p>
+      </div></details>
+      <details><summary>⏰ Mikro-görev sistemi</summary><div class="inner">
+        <ul class="clean">
+          <li><strong>3 titreşimli hatırlatıcı kur:</strong> sabah "3 cümleyle planını İngilizce söyle", öğlen "gördüğün 3 nesneyi İngilizce say", akşam "🎙️ Gemini seansı".</li>
+          <li><strong>1 dakikalık sesli günlük:</strong> saatin ses kaydediciyle her akşam "Today I..." diye 1 dakika konuş. Haftada bir dinle — gelişimini DUYMAK en büyük motivasyon.</li>
+          <li><strong>Yürüyüş = podcast:</strong> kulaklık saate bağlıyken telefonsuz yürüyüşte VOA/BBC dinle; her durakta 1 cümle sesli özet.</li>
+          <li><strong>Pomodoro bilekte:</strong> 25 dakikalık zamanlayıcı kur, site açık olmasa bile döngü işlesin.</li>
+        </ul>
+      </div></details>
+    </div>
+  </section>
+
+  <section id="sec-ilerleme">
+    <div class="secthead">
+      <h2>İlerleme Raporu</h2>
+      <div class="sub">Sayılar yalan söylemez. Buradaki tek hedef: dünkü senden iyi olmak.</div>
+    </div>
+
+    <div class="statgrid" style="margin-bottom:16px">
+      <div class="card"><div class="bignum" style="color:var(--or2)" id="pXp">0</div><div class="lab">Toplam XP</div></div>
+      <div class="card"><div class="bignum" style="color:var(--rd)" id="pStreak">0</div><div class="lab">Aktif seri</div></div>
+      <div class="card"><div class="bignum" style="color:var(--yl)" id="pBest">0</div><div class="lab">Rekor seri</div></div>
+      <div class="card"><div class="bignum" style="color:var(--gr)" id="pWords">0</div><div class="lab">Öğrenilen kart</div></div>
+      <div class="card"><div class="bignum" style="color:var(--cy)" id="pConvo">0</div><div class="lab">Konuşma oturumu</div></div>
+      <div class="card"><div class="bignum" style="color:var(--pu)" id="pWrite">0</div><div class="lab">Yazı</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>📊 Son 7 gün (XP)</h3>
+        <div class="weekbars" id="weekBars"></div>
+      </div>
+      <div class="card">
+        <h3>🗓️ Son 10 hafta</h3>
+        <p class="sub" style="margin:4px 0 10px">Her kare bir gün. Koyu turuncu = dolu dolu çalışılmış.</p>
+        <div class="calgrid" id="calGrid"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🎖️ Rütbeler</h3>
+      <p class="sub" style="margin:4px 0 10px">Her 300 XP'de bir rütbe. Şu anki rütben üstte yazıyor.</p>
+      <div id="rankList" class="pillrow"></div>
+    </div>
+  </section>
+</main>
+
+<footer>İngilizce Komuta Merkezi · Taylan için tek dosyalık, çevrimdışı, ücretsiz öğrenme üssü · Verilerin sadece bu cihazda, tarayıcında saklanır</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+// ===DATA_VOCAB===
+// [en, tr, örnek, seviye]  P = konuşma kalıbı
+const VOCAB=[
+["go","gitmek","I go to work every day.","A1"],
+["come","gelmek","Can you come here, please?","A1"],
+["eat","yemek (yemek)","I eat breakfast at eight.","A1"],
+["drink","içmek","I drink two coffees a day.","A1"],
+["want","istemek","I want to learn English.","A1"],
+["need","ihtiyacı olmak","I need more practice.","A1"],
+["like","sevmek, hoşlanmak","I like playing games.","A1"],
+["have","sahip olmak","I have a Legion Go.","A1"],
+["make","yapmak (üretmek)","I make dinner on Sundays.","A1"],
+["do","yapmak","What do you do on weekends?","A1"],
+["take","almak, götürmek","I take the bus to work.","A1"],
+["give","vermek","Give me a second, please.","A1"],
+["get","almak, edinmek","Where can I get a ticket?","A1"],
+["know","bilmek","I don't know this word.","A1"],
+["think","düşünmek","I think it's a good idea.","A1"],
+["see","görmek","See you tomorrow!","A1"],
+["hear","duymak","I can't hear you well.","A1"],
+["speak","konuşmak","Do you speak English?","A1"],
+["say","söylemek","How do you say this in English?","A1"],
+["tell","anlatmak, söylemek","Tell me about your day.","A1"],
+["ask","sormak","Can I ask a question?","A1"],
+["answer","cevap; cevaplamak","I don't know the answer.","A1"],
+["help","yardım etmek","Could you help me, please?","A1"],
+["work","çalışmak; iş","I work from home.","A1"],
+["live","yaşamak","I live in Turkey.","A1"],
+["play","oynamak","I play games every evening.","A1"],
+["buy","satın almak","I want to buy a new phone.","A1"],
+["open","açmak","Open the door, please.","A1"],
+["close","kapatmak","The shop closes at nine.","A1"],
+["start","başlamak","Let's start the lesson.","A1"],
+["finish","bitirmek","I finish work at six.","A1"],
+["wait","beklemek","Please wait a moment.","A1"],
+["find","bulmak","I can't find my keys.","A1"],
+["lose","kaybetmek","Don't lose your motivation.","A1"],
+["remember","hatırlamak","I remember your name.","A1"],
+["forget","unutmak","Don't forget your homework.","A1"],
+["understand","anlamak","Now I understand!","A1"],
+["learn","öğrenmek","I learn ten words a day.","A1"],
+["read","okumak","I read before I sleep.","A1"],
+["write","yazmak","Write five sentences a day.","A1"],
+["listen","dinlemek","Listen and repeat, please.","A1"],
+["watch","izlemek","I watch series in English.","A1"],
+["walk","yürümek","I walk to the market.","A1"],
+["run","koşmak","He runs every morning.","A1"],
+["sleep","uyumak","I sleep seven hours.","A1"],
+["wake up","uyanmak","I wake up at seven.","A1"],
+["today","bugün","Today is a good day.","A1"],
+["tomorrow","yarın","See you tomorrow morning.","A1"],
+["yesterday","dün","Yesterday was very busy.","A1"],
+["always","her zaman","I always do my review.","A1"],
+["never","asla","I never skip a day.","A1"],
+["sometimes","bazen","Sometimes I study at night.","A1"],
+["often","sık sık","I often play this game.","A1"],
+["now","şimdi","Let's do it now.","A1"],
+["later","sonra","I'll call you later.","A1"],
+["big","büyük","That's a big screen.","A1"],
+["small","küçük","My room is small.","A1"],
+["good","iyi","That's a good question.","A1"],
+["bad","kötü","The weather is bad today.","A1"],
+["new","yeni","I learned a new word.","A1"],
+["old","eski; yaşlı","This is an old game.","A1"],
+["hot","sıcak","The coffee is too hot.","A1"],
+["cold","soğuk","It's cold outside.","A1"],
+["easy","kolay","This level is easy.","A1"],
+["difficult","zor","Speaking is difficult at first.","A1"],
+["happy","mutlu","I'm happy with my progress.","A1"],
+["tired","yorgun","I'm tired after work.","A1"],
+["hungry","aç","I'm hungry. Let's eat.","A1"],
+["money","para","How much money is it?","A1"],
+["time","zaman","What time is it?","A1"],
+["friend","arkadaş","He's my best friend.","A1"],
+["family","aile","I live with my family.","A1"],
+["week","hafta","See you next week.","A1"],
+["because","çünkü","I study because I want a better job.","A1"],
+["but","ama","I'm tired but happy.","A1"],
+["become","olmak, dönüşmek","He became a good speaker.","A2"],
+["begin","başlamak","The movie begins at eight.","A2"],
+["bring","getirmek","Bring your notebook with you.","A2"],
+["build","inşa etmek","They built a new bridge.","A2"],
+["choose","seçmek","Choose one scenario and start.","A2"],
+["decide","karar vermek","I decided to study every day.","A2"],
+["expect","beklemek (ummak)","I didn't expect that question.","A2"],
+["explain","açıklamak","Can you explain it again?","A2"],
+["follow","takip etmek","Follow the instructions.","A2"],
+["happen","olmak, meydana gelmek","What happened yesterday?","A2"],
+["hope","ummak","I hope you feel better.","A2"],
+["improve","geliştirmek","My English is improving.","A2"],
+["invite","davet etmek","She invited me to dinner.","A2"],
+["join","katılmak","Can I join your team?","A2"],
+["miss","özlemek; kaçırmak","I missed the bus this morning.","A2"],
+["move","taşınmak; hareket etmek","We moved to a new flat.","A2"],
+["plan","planlamak","I'm planning a trip.","A2"],
+["prefer","tercih etmek","I prefer tea to coffee.","A2"],
+["prepare","hazırlamak","I'm preparing for the exam.","A2"],
+["promise","söz vermek","I promise to practice daily.","A2"],
+["receive","almak (teslim)","I received your message.","A2"],
+["return","geri dönmek; iade etmek","I want to return this item.","A2"],
+["save","biriktirmek; kaydetmek","I'm saving money for a trip.","A2"],
+["send","göndermek","Send me the address, please.","A2"],
+["share","paylaşmak","Let me share my screen.","A2"],
+["show","göstermek","Show me how it works.","A2"],
+["stay","kalmak","We stayed at a nice hotel.","A2"],
+["travel","seyahat etmek","I love traveling alone.","A2"],
+["try","denemek","Try to speak slowly.","A2"],
+["visit","ziyaret etmek","We visited my grandmother.","A2"],
+["worry","endişelenmek","Don't worry about mistakes.","A2"],
+["amazing","harika, şaşırtıcı","The view was amazing.","A2"],
+["boring","sıkıcı","The lecture was boring.","A2"],
+["careful","dikkatli","Be careful with that glass.","A2"],
+["cheap","ucuz","This restaurant is cheap and good.","A2"],
+["expensive","pahalı","That hotel is too expensive.","A2"],
+["comfortable","rahat","This chair is very comfortable.","A2"],
+["crowded","kalabalık","The mall was so crowded.","A2"],
+["dangerous","tehlikeli","Driving fast is dangerous.","A2"],
+["famous","ünlü","She's a famous singer.","A2"],
+["healthy","sağlıklı","I try to eat healthy food.","A2"],
+["important","önemli","Daily practice is important.","A2"],
+["interesting","ilginç","That's an interesting idea.","A2"],
+["lucky","şanslı","You're so lucky!","A2"],
+["noisy","gürültülü","The street is too noisy.","A2"],
+["polite","kibar","He's always polite to everyone.","A2"],
+["proud","gururlu","I'm proud of my progress.","A2"],
+["quiet","sessiz","I need a quiet place to study.","A2"],
+["ready","hazır","Are you ready to start?","A2"],
+["strange","garip","That sounds strange to me.","A2"],
+["when","-dığı zaman","Call me when you arrive.","A2"],
+["while","-iken","My phone rang while I was studying.","A2"],
+["before","önce","Think before you speak.","A2"],
+["after","sonra","Let's meet after work.","A2"],
+["until","-e kadar","Wait until the light is green.","A2"],
+["during","sırasında","No phones during the meeting.","A2"],
+["so","bu yüzden","I was tired, so I went to bed.","A2"],
+["however","ancak, yine de","It's hard. However, it's worth it.","A2"],
+["maybe","belki","Maybe we can meet tomorrow.","A2"],
+["already","çoktan, zaten","I've already finished it.","A2"],
+["still","hâlâ","I'm still learning.","A2"],
+["yet","henüz","I haven't tried it yet.","A2"],
+["although","-e rağmen","Although it was hard, I finished it.","B1"],
+["despite","-e rağmen (isimle)","Despite the rain, we went out.","B1"],
+["achieve","başarmak","You can achieve your goal this year.","B1"],
+["avoid","kaçınmak","Avoid translating word by word.","B1"],
+["belong","ait olmak","This jacket belongs to me.","B1"],
+["compare","karşılaştırmak","Don't compare yourself to others.","B1"],
+["complain","şikayet etmek","He complained about the service.","B1"],
+["convince","ikna etmek","She convinced me to join the gym.","B1"],
+["develop","geliştirmek","I'm developing a daily routine.","B1"],
+["encourage","cesaretlendirmek","My friends encourage me a lot.","B1"],
+["realize","fark etmek","I realized I was improving fast.","B1"],
+["recommend","tavsiye etmek","I recommend this method to everyone.","B1"],
+["seem","görünmek, gibi gelmek","It seems difficult at first.","B1"],
+["suggest","önermek","I suggest practicing out loud.","B1"],
+["suppose","sanmak, varsaymak","I suppose you're right.","B1"],
+["manage","başarmak; idare etmek","I managed to finish the task on time.","B1"],
+["mention","bahsetmek","He mentioned a useful app.","B1"],
+["depend on","-e bağlı olmak","It depends on the weather.","B1"],
+["deal with","ile başa çıkmak","I can deal with this problem.","B1"],
+["figure out","çözmek, anlamak","I figured out how it works.","B1"],
+["give up","vazgeçmek","Never give up on your goals.","B1"],
+["look forward to","dört gözle beklemek","I'm looking forward to the weekend.","B1"],
+["make sure","emin olmak","Make sure you save your work.","B1"],
+["point out","işaret etmek, belirtmek","She pointed out my mistake kindly.","B1"],
+["used to","eskiden ...-erdi","I used to play football a lot.","B1"],
+["get used to","alışmak","I'm getting used to fast speech.","B1"],
+["end up","sonunda ... olmak","We ended up watching it twice.","B1"],
+["carry on","devam etmek","Carry on with your routine.","B1"],
+["come up with","fikir bulmak","He came up with a great idea.","B1"],
+["run out of","tüketmek, bitirmek","We ran out of coffee.","B1"],
+["put off","ertelemek","Don't put off your practice.","B1"],
+["set up","kurmak","I set up my study corner.","B1"],
+["take care of","ilgilenmek, bakmak","She takes care of her plants.","B1"],
+["in order to","-mek için","I study daily in order to improve.","B1"],
+["as soon as","-er -ermez","Call me as soon as you arrive.","B1"],
+["as long as","-dığı sürece","You'll improve as long as you practice.","B1"],
+["on the other hand","öte yandan","It's expensive. On the other hand, it's high quality.","B1"],
+["at least","en azından","Practice at least ten minutes a day.","B1"],
+["whole","tüm, bütün","I spent the whole day outside.","B1"],
+["several","birkaç","I tried several different methods.","B1"],
+["Could you repeat that, please?","Tekrar eder misiniz lütfen?","Sorry, could you repeat that, please?","P"],
+["What does ... mean?","... ne demek?","What does 'fluent' mean?","P"],
+["How do you say ... in English?","İngilizce ... nasıl denir?","How do you say 'kolay gelsin' in English?","P"],
+["Sorry, I didn't catch that.","Pardon, anlayamadım.","Sorry, I didn't catch that. Once more?","P"],
+["Can you speak more slowly?","Daha yavaş konuşur musunuz?","Can you speak more slowly, please?","P"],
+["Let me think for a second.","Bir saniye düşüneyim.","Hmm, let me think for a second.","P"],
+["That makes sense.","Mantıklı.","Oh, that makes sense now.","P"],
+["I'm not sure, but I think...","Emin değilim ama bence...","I'm not sure, but I think it's correct.","P"],
+["In my opinion...","Bence / Bana göre...","In my opinion, this game is better.","P"],
+["To be honest...","Açıkçası...","To be honest, I didn't like it.","P"],
+["It depends.","Duruma göre değişir.","Coffee or tea? It depends.","P"],
+["I agree with you.","Sana katılıyorum.","I agree with you on that.","P"],
+["I see what you mean.","Ne demek istediğini anlıyorum.","I see what you mean, but...","P"],
+["By the way...","Bu arada...","By the way, how was your weekend?","P"],
+["First of all...","Öncelikle...","First of all, thanks for your help.","P"],
+["For example...","Örneğin...","I like RPGs, for example The Witcher.","P"],
+["I mean...","Yani...","It's hard, I mean, really hard.","P"],
+["That's a good question.","Güzel soru.","That's a good question, let me think.","P"],
+["Long story short...","Uzun lafın kısası...","Long story short, we missed the flight.","P"],
+["As far as I know...","Bildiğim kadarıyla...","As far as I know, it's free.","P"],
+["I'd rather...","Tercihen ... yapardım","I'd rather stay home tonight.","P"],
+["It's worth it.","Değer.","It's hard work, but it's worth it.","P"],
+["Never mind.","Boş ver.","Never mind, I found it.","P"],
+["It's up to you.","Sana kalmış.","Pizza or burger? It's up to you.","P"],
+["I can't wait!","Sabırsızlanıyorum!","I can't wait for the new update!","P"],
+["What do you think about...?","... hakkında ne düşünüyorsun?","What do you think about this idea?","P"],
+["Could I get...?","... alabilir miyim?","Could I get a glass of water?","P"],
+["Would you mind...?","... rica etsem?","Would you mind opening the window?","P"],
+["I'm afraid...","Korkarım ki / maalesef...","I'm afraid I can't come today.","P"],
+["No worries.","Sorun değil.","No worries, take your time.","P"],
+["Take your time.","Acele etme.","Take your time, there's no rush.","P"],
+["It sounds good.","Kulağa hoş geliyor.","Saturday at noon? Sounds good.","P"],
+["I have no idea.","Hiçbir fikrim yok.","I have no idea where it is.","P"],
+["Let me check.","Bir kontrol edeyim.","Let me check my calendar.","P"],
+["You're right.","Haklısın.","You're right, I should rest.","P"],
+["Same here.","Ben de öyle / Aynen.","I'm tired today. — Same here.","P"],
+["Go ahead.","Buyur / Devam et.","Can I ask something? — Go ahead.","P"],
+["That's exactly what I mean.","Tam olarak bunu kastediyorum.","Yes! That's exactly what I mean.","P"],
+["I'm on my way.","Yoldayım.","Wait for me, I'm on my way.","P"],
+["It's a deal.","Anlaştık.","You cook, I clean. It's a deal.","P"],
+["Guess what!","Bil bakalım ne oldu!","Guess what! I finished week one!","P"],
+["What's it like?","Nasıl bir şey?","What's it like living there?","P"],
+["The thing is...","Mesele şu ki...","The thing is, I forgot my wallet.","P"],
+["Anyway...","Her neyse...","Anyway, let's get back to work.","P"],
+["I'll figure it out.","Bir yolunu bulurum.","Don't worry, I'll figure it out.","P"]
+];
+// ===DATA_REST===
+const SENT={
+A1:[
+"My name is Taylan and I live in Turkey.",
+"I want to learn English this year.",
+"Can I have a coffee, please?",
+"Where is the nearest bus stop?",
+"I usually wake up at seven o'clock.",
+"This game is really fun.",
+"I don't understand this word.",
+"Could you help me, please?",
+"How much is this jacket?",
+"I'm from Turkey. Where are you from?",
+"I play games every evening.",
+"She works in a big hospital.",
+"We have two cats at home.",
+"The weather is very nice today.",
+"I'm hungry. Let's eat something.",
+"What time does the shop open?",
+"He doesn't like cold weather.",
+"My favorite color is blue.",
+"I study English for thirty minutes every day.",
+"See you tomorrow at the same time."
+],
+A2:[
+"I went to the cinema with my friends last weekend.",
+"I'm going to visit my family next month.",
+"I have been learning English for two months.",
+"If it rains tomorrow, I will stay at home.",
+"I used to play football when I was a child.",
+"Could you tell me how to get to the station?",
+"I'd like to book a table for two, please.",
+"She is much taller than her brother.",
+"I have never been to London, but I want to go.",
+"While I was playing a game, my phone rang.",
+"You should drink more water every day.",
+"We didn't have enough time to finish everything.",
+"He was watching TV when I arrived home.",
+"I'm thinking about buying a new computer.",
+"There are too many people in this cafe.",
+"Can you call me back in ten minutes?",
+"I forgot to bring my charger with me.",
+"It takes about twenty minutes by bus.",
+"What were you doing at nine last night?",
+"Let me know if you need anything else."
+],
+B1:[
+"Although learning a language takes time, it is definitely worth the effort.",
+"I've been thinking about changing my daily routine to study more effectively.",
+"If I had more free time, I would practice speaking every single day.",
+"The movie was not as good as I expected, to be honest.",
+"By the time I finish this plan, I will have learned hundreds of new phrases.",
+"I'd rather practice with an AI tutor than memorize long grammar rules.",
+"It took me a while to get used to listening to fast native speakers.",
+"Unless you use new words actively, you will forget them very quickly.",
+"One of the best ways to improve is recording yourself and listening back.",
+"As soon as I get home from work, I review my flashcards for fifteen minutes.",
+"I was supposed to call him yesterday, but I completely forgot.",
+"The more you speak, the more confident you become.",
+"He suggested meeting earlier so that we could avoid the traffic.",
+"I have no idea what happened, but everyone seemed really excited.",
+"Even though I was exhausted, I managed to finish my daily tasks.",
+"You'd better take an umbrella in case it rains later.",
+"I ended up spending the whole evening fixing my computer.",
+"She pointed out a mistake that I had never noticed before.",
+"Learning never exhausts the mind; it only makes it stronger.",
+"Looking back, I'm really glad I didn't give up at the beginning."
+]};
+
+const SCEN=[
+{lv:"A1",t:"☕ Kafede Sipariş",goal:"Sipariş ver, fiyat sor, teşekkür et.",ph:["I'd like a medium latte, please.","Could I get that to go?","Do you have anything sugar-free?","Can I pay by card?","Could I get the receipt?"],pr:"Let's roleplay. You are a friendly barista in a coffee shop. I am a customer with A1 English. Speak very slowly, short sentences. Ask me questions one at a time. Start by greeting me."},
+{lv:"A1",t:"👋 Tanışma",goal:"Kendini tanıt, karşındakine 3 soru sor.",ph:["Nice to meet you!","I'm from Turkey. How about you?","What do you do for a living?","Do you like video games?","Let's keep in touch."],pr:"Let's roleplay. You are a new neighbor I just met. My English level is A1. Speak slowly with simple words. Introduce yourself and ask me simple questions about my life, one at a time."},
+{lv:"A1",t:"🧭 Yol Sorma",goal:"Adres sor, tarifi anla, teyit et.",ph:["Excuse me, how can I get to the metro?","Is it far from here?","Should I turn left or right?","Sorry, can you say that again?","Thanks a lot for your help!"],pr:"Roleplay: I am a tourist with A1 English, you are a local person on the street. I will ask for directions. Give very simple directions, then check if I understood by asking me to repeat."},
+{lv:"A1",t:"🛒 Markette",goal:"Ürün yeri sor, miktar iste, öde.",ph:["Where can I find the milk?","How much are these apples?","Could I have half a kilo?","Do you have a smaller bag?","Keep the change."],pr:"Roleplay: you are a supermarket worker, I am a customer with A1 English. Speak slowly. I will ask where things are and buy some food. Ask me simple questions too."},
+{lv:"A1",t:"🍽️ Restoranda",goal:"Masa iste, sipariş ver, hesabı al.",ph:["A table for two, please.","What do you recommend?","I'll have the chicken, please.","Could we get the bill?","Everything was delicious."],pr:"Roleplay: you are a waiter in a small restaurant. I am a customer with A1 English. Speak slowly and simply. Greet me, take my order, and chat a little."},
+{lv:"A2",t:"🏨 Otel Check-in",goal:"Rezervasyonunu bul, oda hakkında soru sor, sorun bildir.",ph:["I have a reservation under the name Taylan.","What time is breakfast served?","Is the Wi-Fi free?","The air conditioning isn't working.","Could I get a late check-out?"],pr:"Roleplay: you are a hotel receptionist, I am a guest with A2 English checking in. Speak clearly. Create one small problem with my booking so I have to solve it by talking."},
+{lv:"A2",t:"🩺 Doktorda",goal:"Şikayetini anlat, soruları cevapla, tavsiyeyi anla.",ph:["I've had a headache since yesterday.","It hurts when I move my arm.","I'm allergic to penicillin.","How often should I take this?","Should I come back next week?"],pr:"Roleplay: you are a kind doctor, I am a patient with A2 English. Ask about my symptoms one question at a time. Use simple medical words. At the end, give simple advice."},
+{lv:"A2",t:"🔄 Ürün İadesi",goal:"Sorunu açıkla, iade/değişim iste, ikna et.",ph:["I bought this last week, but it doesn't work.","I'd like a refund, please.","Here's the receipt.","Could I exchange it for another one?","It stopped working after two days."],pr:"Roleplay: you are a shop assistant, I am a customer with A2 English returning a broken product. Be a little difficult at first so I have to explain and convince you. Speak clearly."},
+{lv:"A2",t:"📱 Telefon/İnternet Aboneliği",goal:"Paketleri karşılaştır, soru sor, seç.",ph:["What plans do you have?","How much data is included?","Is there a contract?","That sounds a bit expensive.","I'll take this one, please."],pr:"Roleplay: you sell mobile phone plans, I am a customer with A2 English. Offer me two different plans, answer my questions, and let me choose. Speak clearly, not too fast."},
+{lv:"A2",t:"🌦️ Small Talk Ustası",goal:"Hava, hafta sonu, güncel konular — 5 dk sohbeti ayakta tut.",ph:["Lovely weather today, isn't it?","How was your weekend?","Any plans for the holiday?","Time flies, right?","It was nice talking to you!"],pr:"Let's practice small talk. You are a friendly coworker in the elevator and kitchen. My level is A2. Keep the chat going with easy questions about weather, weekend, food. One question at a time."},
+{lv:"A2",t:"🚕 Takside",goal:"Adres tarif et, sohbet et, öde.",ph:["Could you take me to the airport?","How long will it take?","Can we stop at an ATM?","You can drop me off here.","Could I get a receipt?"],pr:"Roleplay: you are a chatty taxi driver, I am a passenger with A2 English. Ask me where I'm going and make small talk about my trip. Speak clearly with simple words."},
+{lv:"A2",t:"📅 Arkadaşla Plan Yapma",goal:"Buluşma öner, saat/yer pazarlığı yap, teyitle.",ph:["Are you free this Saturday?","How about meeting at noon?","That doesn't work for me.","Let's make it earlier.","See you there at seven!"],pr:"Roleplay: you are my friend, I want to make weekend plans with you. My level is A2. Be a bit busy so we have to negotiate the time and place. Keep sentences short."},
+{lv:"B1",t:"💼 İş Görüşmesi",goal:"Kendini tanıt, güçlü yönlerini anlat, soru sor.",ph:["I have three years of experience in...","My biggest strength is problem-solving.","I work well under pressure.","Could you tell me about the team?","When can I expect to hear back?"],pr:"Roleplay: you are a hiring manager interviewing me for a junior position. My English is B1. Ask common interview questions one at a time. After my answers, give one short tip on how to say it better. Keep it realistic but friendly."},
+{lv:"B1",t:"🖥️ Teknik Destek Hattı",goal:"Sorunu detaylı anlat, adımları takip et, çözüm iste.",ph:["My device won't turn on.","I've already tried restarting it.","It started after the last update.","Could you walk me through it?","Is it covered by the warranty?"],pr:"Roleplay: you are tech support for a gaming handheld company, I am a customer with B1 English. My device has a problem. Ask me troubleshooting questions step by step. Use realistic but clear language."},
+{lv:"B1",t:"😤 Şikayet ve Çözüm",goal:"Kibarca ama net şikayet et, telafi iste.",ph:["I'm afraid there's a problem with my order.","This isn't what I expected.","I'd appreciate it if you could fix this.","What can you offer as a solution?","I'd like to speak to a manager, please."],pr:"Roleplay: you are a customer service agent, I am a customer with B1 English whose online order arrived damaged and late. Be polite but don't accept my first request immediately, so I have to negotiate a solution."},
+{lv:"B1",t:"🏠 Daire Kiralama",goal:"Detay sor, pazarlık et, koşulları anla.",ph:["Is the apartment still available?","Are the bills included in the rent?","Is it close to public transport?","Would you consider a lower price?","When could I move in?"],pr:"Roleplay: you are a landlord showing me an apartment. My English is B1. Answer my questions, mention one downside of the flat honestly, and negotiate the rent with me a little."},
+{lv:"B1",t:"🎮 Oyun Anlatıcısı",goal:"Sevdiğin oyunu akıcı anlat: mekanik, hikaye, neden iyi.",ph:["It's an open-world RPG where you...","The story is about...","What makes it special is...","The graphics are stunning.","I'd recommend it to anyone who likes..."],pr:"I will describe my favorite video game to you in English (B1). You are a curious friend who has never played it. Ask follow-up questions, and after every long answer of mine, give one quick tip to sound more natural."},
+{lv:"B1",t:"🗣️ Fikir Tartışması",goal:"Görüş savun, katıl/karşı çık, örnek ver.",ph:["I see your point, but...","That's true to some extent.","Let me give you an example.","I strongly believe that...","We'll have to agree to disagree."],pr:"Let's have a friendly debate in English (B1 level). Topic: 'Is social media good for society?' Take the opposite side from me. Keep your turns short, ask me to explain my opinions, and correct big mistakes with quick tips."},
+{lv:"B1",t:"📖 Hikaye Anlatıcısı",goal:"Geçmiş zamanda akıcı bir anı anlat (başı-ortası-sonu).",ph:["It all started when...","At first, everything was fine.","Suddenly, ...","Long story short, ...","Looking back, it was unforgettable."],pr:"I want to practice storytelling in English (B1). Ask me to tell you a real memory (funny, scary, or surprising). Listen, then ask 3 follow-up questions, then retell my story in better English so I can compare."},
+{lv:"B1",t:"✈️ Havalimanında Kriz",goal:"Rötar/kayıp bagaj sorununu çöz, hakkını savun.",ph:["My flight has been delayed for three hours.","My luggage didn't arrive.","What am I entitled to?","Could you rebook me on the next flight?","I need this resolved today."],pr:"Roleplay: you are an airline desk agent, I am a passenger with B1 English. My connecting flight was cancelled and my bag is missing. Help me but follow 'company rules' so I have to push politely for a solution."}
+];
+
+const PLAN=[
+{n:1,t:"Tanışma & Şimdiki Hayatın",gr:"to be, sahiplik (have got), kendini tanıtma",task:"Gemini ile 'Tanışma' senaryosu (2 kez)",boss:"Aynaya/kameraya 60 sn kendini tanıt — tek seferde, durmadan"},
+{n:2,t:"Günlük Rutin",gr:"Present Simple, sıklık zarfları (always/never)",task:"Rutinini Gemini'ye anlat; o sana sorular sorsun",boss:"Sabahından akşamına gününü 90 sn anlat (kayda al)"},
+{n:3,t:"Yeme-İçme & Sipariş",gr:"can/could, sayılabilen-sayılamayan (some/any)",task:"'Kafede' + 'Restoranda' senaryoları",boss:"Hiç takılmadan komple bir restoran diyaloğu çevir"},
+{n:4,t:"Mekanlar & Yön Tarifi",gr:"there is/are, yer edatları (in/on/at/next to)",task:"'Yol sorma' senaryosu; evinin tarifini ver",boss:"Odanı 10 cümleyle anlat: what is where?"},
+{n:5,t:"Geçmişe Yolculuk",gr:"Past Simple (düzenli + en sık 25 düzensiz fiil)",task:"Dünü anlat + 'Hafta sonun nasıldı?' sohbeti",boss:"Çocukluğundan bir anıyı 90 sn anlat"},
+{n:6,t:"Planlar & Gelecek",gr:"going to, will, Present Continuous (gelecek)",task:"'Arkadaşla plan yapma' senaryosu",boss:"Önümüzdeki yılki 5 hedefini gerekçeleriyle anlat"},
+{n:7,t:"Deneyimler",gr:"Present Perfect (have you ever...?), been/gone",task:"'Have you ever' oyunu — Gemini sorsun, sen de ona sor",boss:"Hayatında yaptığın en ilginç 3 şeyi anlat"},
+{n:8,t:"Karşılaştırma & Tercih",gr:"comparative/superlative, I prefer / I'd rather",task:"İki oyunu/telefonu karşılaştır; 'Abonelik' senaryosu",boss:"Bazzite vs Windows'u İngilizce savun (gerçekten yapabilirsin!)"},
+{n:9,t:"Hikaye Anlatıcılığı",gr:"Past Continuous + when/while, bağlaçlar (suddenly, then)",task:"'Hikaye Anlatıcısı' senaryosu",boss:"Başı-ortası-sonu olan 2 dakikalık bir hikaye anlat"},
+{n:10,t:"Fikir & Tartışma",gr:"should/must, agree/disagree kalıpları, in my opinion",task:"'Fikir Tartışması' senaryosu (2 farklı konu)",boss:"Bir konuda 1 dk 'lehte', 1 dk 'aleyhte' konuş"},
+{n:11,t:"Varsayımlar",gr:"1. ve 2. koşul (if), what would you do?",task:"Gemini'yle 'what if' oyunu; 'Daire kiralama' senaryosu",boss:"'If I had one million dollars' — 2 dk kesintisiz"},
+{n:12,t:"BÜYÜK FİNAL",gr:"Genel tekrar — zayıf noktalarına göre",task:"'İş Görüşmesi' + 'Havalimanında Kriz' senaryoları",boss:"Gemini'den 'Haftalık seviye ölçümü' promptuyla tam mülakat al: hedef sağlam A2+/B1 raporu"}
+];
+
+const WPROMPTS=[
+"Describe your typical day from morning to night.",
+"What is your favorite video game and why do you love it?",
+"Write a message inviting a friend to dinner this weekend.",
+"Describe your city to a tourist: what should they see and eat?",
+"What are your three biggest goals for this year?",
+"Write a short review of the last movie or series you watched.",
+"Explain how to cook your favorite dish, step by step.",
+"Describe your dream house in detail.",
+"Write about a funny or embarrassing memory from your childhood.",
+"Working from home: write 3 advantages and 3 disadvantages.",
+"Describe your morning routine — and what you want to change about it.",
+"Write a polite complaint email about a product that arrived broken.",
+"Explain the Legion Go to someone who has never seen a gaming handheld.",
+"What would you do if you won a million dollars? Be specific.",
+"Compare two phones (or consoles) and say which one is better and why.",
+"Is social media good or bad for people? Give your honest opinion.",
+"Describe your best friend: personality, looks, and why you get along.",
+"Which country do you want to visit most? What would you do there?",
+"Write a short story that starts with: 'When I opened the door...'",
+"Why are you learning English? What will change when you speak it well?",
+"Describe today's weather and your plans for the evening.",
+"Write a short introduction about yourself for a job application.",
+"Write a message to a hotel asking about your reservation details.",
+"Open your phone gallery, pick a photo, and describe it in detail.",
+"PC vs console gaming: which side are you on? Defend it.",
+"Explain a Turkish tradition to a foreign friend.",
+"What will daily life look like in 2040? Make three predictions.",
+"Describe something difficult you learned before, and how you did it.",
+"Write a thank-you message to someone who helped you recently.",
+"If you could have any superpower, what would it be and how would you use it?"
+];
+
+const TEST=[
+{q:"She ___ to school every day.",o:["go","goes","going","is go"],a:1},
+{q:"___ you like coffee?",o:["Are","Is","Do","Does"],a:2},
+{q:"'Cheap' kelimesinin zıttı:",o:["small","expensive","easy","old"],a:1},
+{q:"I ___ TV when you called me.",o:["watched","was watching","watch","am watching"],a:1},
+{q:"We arrived ___ the airport at 9 pm.",o:["to","in","at","on"],a:2},
+{q:"___ you ever been to Istanbul?",o:["Did","Are","Do","Have"],a:3},
+{q:"He's the ___ player in the team.",o:["good","better","best","most good"],a:2},
+{q:"I used to ___ football when I was young.",o:["play","playing","played","plays"],a:0},
+{q:"Could you ___ me the salt, please?",o:["give to","pass","take","bring to me"],a:1},
+{q:"I've been learning English ___ two months.",o:["since","from","for","during"],a:2},
+{q:"If I ___ rich, I would travel the world.",o:["am","was/were","will be","would be"],a:1},
+{q:"Despite ___ tired, he kept working.",o:["he was","being","to be","of being"],a:1}
+];
+
+const TIPS=[
+"Bugün öğrendiğin bir kalıbı günün içinde 3 farklı cümlede sesli kullan — kullanılan kalıp kalıcıdır.",
+"Gemini'yle konuşurken hata yapmaktan korkma: hata yapmadığın seans, konfor alanında kaldığın seanstır.",
+"Duş alırken bugün ne yaptığını İngilizce anlat. Kimse duymuyor, bahane yok.",
+"Telefonda gezinirken gördüğün 3 şeyin İngilizcesini söyle. Bilmediğini saate sor: 'Hey Google, how do I say...'",
+"Bir kelimeyi 3. kez unutuyorsan cümlesiyle birlikte el yazısıyla yaz (S Pen tam bunun için).",
+"Bugün dikteyi yavaş modda değil normal hızda dene — kulak zorlanmadan açılmaz.",
+"Yeni kelime eklerken tek kelime değil kalıp ekle: 'decide' değil, 'decide to do something'.",
+"Konuşurken takıldığında Türkçe düşünme; bildiğin basit kelimelerle etrafından dolan. Buna 'paraphrasing' denir ve gerçek akıcılık budur.",
+"Bugünkü Gemini seansında en az 1 kez 'Why?' sorusuna uzun cevap ver — kısa cevap kası değil, paragraf kası geliştir.",
+"Dün kaydettiğin sesli günlüğü dinle: kendi kulağın, en acımasız ve en iyi hocandır.",
+"Shadowing yaparken anlamı düşünme, melodiyi taklit et — ritim doğruysa anlam yerine oturur.",
+"Haftada bir 'sıfır Türkçe saat' ilan et: 60 dakika boyunca telefon, notlar, düşünce — her şey İngilizce."
+];
+
+const RANKS=["Çaylak","Acemi Er","Kelime Avcısı","Cümle Ustası","Sohbet Eri","Diyalog Komutanı","Akıcılık Şövalyesi","Hata Avcısı","Senaryo Fatihi","İngilizce Generali","Komuta Efsanesi"];
+// ===CORE===
+const mem={};
+const store={
+  get(k,d){try{const v=localStorage.getItem("ikm_"+k);return v===null?d:JSON.parse(v)}catch(e){return k in mem?mem[k]:d}},
+  set(k,v){try{localStorage.setItem("ikm_"+k,JSON.stringify(v))}catch(e){mem[k]=v}}
+};
+let S=store.get("state",{xp:0,log:{},chk:{},bonus:{},srs:{},custom:[],journal:[],convos:[],intro:{},dayStats:{},level:null,mins:60,kmode:"flip",wpIdx:null});
+function saveS(){store.set("state",S)}
+const $=id=>document.getElementById(id);
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function today(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function dstr(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+let toastT=null;
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2200)}
+function xpFly(n,x,y){const e=document.createElement("div");e.className="xpfly";e.textContent="+"+n+" XP";e.style.left=(x||innerWidth/2)+"px";e.style.top=(y||innerHeight/2)+"px";document.body.appendChild(e);setTimeout(()=>e.remove(),1000)}
+function addXp(n,ev){S.xp=Math.max(0,S.xp+n);const t=today();S.log[t]=Math.max(0,(S.log[t]||0)+n);saveS();renderHeader();if(n>0&&ev)xpFly(n,ev.clientX,ev.clientY)}
+function getDS(){const t=today();if(!S.dayStats[t])S.dayStats[t]={sh:0,dc:0,cv:0,wr:0};return S.dayStats[t]}
+
+function streak(){
+  let s=0;const d=new Date();
+  if((S.log[dstr(d)]||0)<30)d.setDate(d.getDate()-1); // bugün henüz dolmadıysa dünden say
+  while((S.log[dstr(d)]||0)>=30){s++;d.setDate(d.getDate()-1)}
+  return s;
+}
+function bestStreak(){
+  const days=Object.keys(S.log).filter(k=>S.log[k]>=30).sort();
+  let best=0,cur=0,prev=null;
+  for(const k of days){
+    if(prev){const p=new Date(prev),c=new Date(k);cur=((c-p)/86400000===1)?cur+1:1}else cur=1;
+    if(cur>best)best=cur;prev=k;
+  }
+  return Math.max(best,streak());
+}
+function rank(){return RANKS[Math.min(RANKS.length-1,Math.floor(S.xp/300))]}
+function renderHeader(){$("hStreak").textContent=streak();$("hXp").textContent=S.xp;$("hRank").textContent=rank();$("qDue").textContent=dueCount()}
+
+function go(t){
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("act",b.dataset.t===t));
+  document.querySelectorAll("main section").forEach(s=>s.classList.toggle("act",s.id==="sec-"+t));
+  if(t==="kelime")renderSrs();
+  if(t==="ilerleme")renderProgress();
+  if(t==="bugun")renderToday();
+  window.scrollTo({top:0});
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.t));
+
+function copyText(id){
+  const node=$(id).cloneNode(true);
+  node.querySelectorAll("button").forEach(b=>b.remove());
+  const txt=node.textContent.trim();
+  const done=()=>toast("📋 Kopyalandı — şimdi Gemini/ChatGPT'ye yapıştır");
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done).catch(()=>fallbackCopy(txt,done))}
+  else fallbackCopy(txt,done);
+}
+function fallbackCopy(txt,done){const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done()}catch(e){toast("Kopyalama desteklenmiyor — elle seç")}ta.remove()}
+
+/* ---------- Bugün: görev listesi ---------- */
+const CHK_T={
+ 30:[
+  {t:"Kelime tekrarı (10 dk)",d:"Kelime sekmesinde bekleyen kartları bitir",xp:10,tab:"kelime"},
+  {t:"Gemini Live mini sohbet (10 dk)",d:"Koç promptu + günün senaryosu, telefonda",xp:15,tab:"konusma"},
+  {t:"2 cümle dikte",d:"Dinleme sekmesinde — yavaş mod serbest",xp:5,tab:"dinleme"}],
+ 60:[
+  {t:"Kelime tekrarı (15 dk)",d:"Bekleyen kartlar + 10 yeni kart",xp:10,tab:"kelime"},
+  {t:"Gemini Live sohbeti (15-20 dk)",d:"Senaryo seç → oyna → 'finish session' raporunu al",xp:20,tab:"konusma"},
+  {t:"Sohbet Defteri'ne hasat",d:"Rapordaki 5 kalıbı deftere yaz, en az 2'sini karta çevir",xp:10,tab:"konusma"},
+  {t:"5 cümle gölgeleme",d:"Dinle → sesli tekrar et → puanla",xp:10,tab:"konusma"},
+  {t:"5 cümle dikte",d:"Kulağı keskinleştir",xp:10,tab:"dinleme"}],
+ 90:[
+  {t:"Kelime tekrarı (15 dk)",d:"Bekleyen kartlar + 15 yeni kart",xp:10,tab:"kelime"},
+  {t:"Gemini Live sohbeti (20 dk)",d:"Senaryo + serbest sohbet, raporu almayı unutma",xp:20,tab:"konusma"},
+  {t:"Sohbet Defteri'ne hasat",d:"Kalıpları yaz, karta çevir",xp:10,tab:"konusma"},
+  {t:"Gölgeleme seansı (10 cümle)",d:"Bugün normal hızda dene",xp:10,tab:"konusma"},
+  {t:"5 cümle dikte",d:"Hedef: ilk dinleyişte %80",xp:10,tab:"dinleme"},
+  {t:"Günün yazısı",d:"40+ kelime yaz → AI'ya düzelttir → hataları karta çevir",xp:15,tab:"yazma"},
+  {t:"Aktif izleme/dinleme (20 dk)",d:"Language Reactor'lı video veya podcast + 5 kalıp avı",xp:15,tab:"dinleme"}]
+};
+function renderToday(){
+  const t=today();
+  $("todayDate").textContent=new Date().toLocaleDateString("tr-TR",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  $("onboardCard").style.display=S.level?"none":"block";
+  document.querySelectorAll("#timePills .pill").forEach(p=>{p.classList.toggle("act",+p.dataset.m===S.mins);
+    p.onclick=()=>{S.mins=+p.dataset.m;saveS();renderToday()}});
+  const items=CHK_T[S.mins];
+  if(!S.chk[t])S.chk[t]={};
+  if(!S.chk[t][S.mins])S.chk[t][S.mins]=[];
+  const done=S.chk[t][S.mins];
+  $("checklist").innerHTML=items.map((it,i)=>`
+    <div class="chk ${done.includes(i)?"done":""}" onclick="toggleChk(${i},event)">
+      <div class="box">${done.includes(i)?"✔":""}</div>
+      <div><div class="t">${esc(it.t)}</div><div class="d">${esc(it.d)} · <a href="javascript:void(0)" onclick="event.stopPropagation();go('${it.tab}')">aracı aç →</a></div></div>
+      <div class="xp tag yl">+${it.xp}</div>
+    </div>`).join("");
+  const pct=Math.round(done.length/items.length*100);
+  $("dayPct").textContent=pct+"%";$("dayBar").style.width=pct+"%";
+  const dayIdx=Math.floor(new Date().getTime()/86400000);
+  $("dailyTip").textContent=TIPS[dayIdx%TIPS.length];
+  renderHeader();
+}
+function toggleChk(i,ev){
+  const t=today(),items=CHK_T[S.mins],arr=S.chk[t][S.mins];
+  const idx=arr.indexOf(i);
+  if(idx>=0){arr.splice(idx,1);addXp(-items[i].xp)}
+  else{
+    arr.push(i);addXp(items[i].xp,ev);
+    if(arr.length===items.length&&!S.bonus[t+"_"+S.mins]){S.bonus[t+"_"+S.mins]=1;addXp(30,ev);toast("🎉 Günlük liste tamam! +30 bonus XP")}
+  }
+  saveS();renderToday();
+}
+
+/* ---------- Seviye testi ---------- */
+function renderTest(){
+  if(S.level){
+    $("testBody").innerHTML=`<div class="hint">✅ <div>Kayıtlı seviyen: <strong>${S.level}</strong>. ${startHintText()} <a href="javascript:resetTest()">Testi yeniden çöz</a></div></div>`;
+    $("planHint").innerHTML=startHintText();return;
+  }
+  $("testBody").innerHTML=TEST.map((q,i)=>`
+    <div class="levelpick" style="margin-bottom:14px"><strong>${i+1}. ${esc(q.q)}</strong>
+      ${q.o.map((o,j)=>`<label><input type="radio" name="tq${i}" value="${j}"> ${esc(o)}</label>`).join("")}
+    </div>`).join("")+`<button class="btn primary" onclick="scoreTest()">Sonucu Gör</button>`;
+}
+function scoreTest(){
+  let sc=0;
+  TEST.forEach((q,i)=>{const sel=document.querySelector(`input[name=tq${i}]:checked`);if(sel&&+sel.value===q.a)sc++});
+  S.level=sc<=4?"A1":sc<=8?"A2":"B1";saveS();
+  toast(`Test bitti: ${sc}/12 → Seviyen ${S.level}`);
+  renderTest();renderPlan();renderToday();
+}
+function resetTest(){S.level=null;saveS();renderTest();renderPlan()}
+function startWeek(){return S.level==="A2"?5:S.level==="B1"?9:1}
+function startHintText(){
+  if(!S.level)return "Testi çözersen başlangıç haftanı işaretlerim.";
+  const w=startWeek();
+  return `Seviyen <strong>${S.level}</strong> → plana <strong>${w}. haftadan</strong> başla; önceki haftalara göz at, eksik varsa 2-3 günde kapat. Koç promptundaki [A2] kısmına <strong>[${S.level}]</strong> yaz.`;
+}
+
+/* ---------- 12 haftalık plan ---------- */
+function renderPlan(){
+  const sw=S.level?startWeek():0;
+  $("planList").innerHTML=PLAN.map(w=>`
+    <details ${w.n===sw?"open":""}>
+      <summary>Hafta ${w.n}: ${esc(w.t)} ${w.n===sw?'<span class="tag or">BAŞLA BURADAN</span>':""} ${w.n<sw?'<span class="tag a1">hızlı geç</span>':""}</summary>
+      <div class="inner">
+        <ul class="clean">
+          <li><strong>Dilbilgisi odağı:</strong> ${esc(w.gr)} — "Gramer dersi" promptuyla Gemini'den Türkçe anlatım al.</li>
+          <li><strong>Konuşma görevi:</strong> ${esc(w.task)}</li>
+          <li><strong>Kelime hedefi:</strong> bu hafta 20 yeni kart bitir (Kelime sekmesi sayar).</li>
+          <li><strong>🏆 Hafta sonu BOSS görevi:</strong> ${esc(w.boss)}</li>
+        </ul>
+      </div>
+    </details>`).join("");
+  $("planHint").innerHTML=startHintText();
+}
+
+// ===TOOLS===
+/* ---------- Sesli okuma (TTS) ---------- */
+let VOICES=[];
+function loadVoices(){VOICES=(speechSynthesis.getVoices()||[]).filter(v=>v.lang&&v.lang.toLowerCase().startsWith("en"))}
+if("speechSynthesis" in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}
+function speak(text,rate){
+  if(!("speechSynthesis" in window)){toast("Bu tarayıcıda sesli okuma yok — Chrome/Edge dene");return}
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  const pref=VOICES.find(v=>/en[-_]US/i.test(v.lang)&&/google|natural|online/i.test(v.name))||VOICES.find(v=>/en[-_]US/i.test(v.lang))||VOICES[0];
+  if(pref)u.voice=pref;
+  u.lang="en-US";u.rate=rate||0.92;
+  speechSynthesis.speak(u);
+  if(!VOICES.length)toast("İngilizce ses bulunamadı — telefonda veya Windows'ta Chrome/Edge ile aç");
+}
+
+/* ---------- Benzerlik & fark ---------- */
+function norm(s){return s.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9' ]+/g," ").replace(/\s+/g," ").trim()}
+function diffScore(target,said){
+  const a=norm(target).split(" ").filter(Boolean),b=norm(said).split(" ").filter(Boolean);
+  const m=a.length,n=b.length;
+  const L=Array.from({length:m+1},()=>new Array(n+1).fill(0));
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)L[i][j]=a[i-1]===b[j-1]?L[i-1][j-1]+1:Math.max(L[i-1][j],L[i][j-1]);
+  const inLcsA=new Array(m).fill(false),inLcsB=new Array(n).fill(false);
+  let i=m,j=n;
+  while(i>0&&j>0){if(a[i-1]===b[j-1]&&L[i][j]===L[i-1][j-1]+1){inLcsA[i-1]=true;inLcsB[j-1]=true;i--;j--}else if(L[i-1][j]>=L[i][j-1])i--;else j--}
+  const score=m+n?Math.round(2*L[m][n]/(m+n)*100):0;
+  const tHtml=a.map((w,k)=>`<span class="${inLcsA[k]?"w-ok":"w-miss"}">${esc(w)}</span>`).join(" ");
+  const extras=b.filter((w,k)=>!inLcsB[k]);
+  return {score,tHtml,extras};
+}
+function scoreMsg(s){return s>=90?"🏆 Mükemmel!":s>=75?"🔥 Çok iyi!":s>=60?"💪 İyi — bir kez daha":s>=40?"🙂 Olur böyle, tekrar dinle":"🐢 Yavaş modda dinleyip parça parça söyle"}
+
+/* ---------- Gölgeleme ---------- */
+let shLv="A1",shCur=null;
+function shNext(){const arr=SENT[shLv];shCur=arr[Math.floor(Math.random()*arr.length)];$("shSent").textContent=shCur;
+  const tag=$("shTag");tag.textContent=shLv;tag.className="lvtag tag "+shLv.toLowerCase();
+  $("shInput").value="";$("shResult").innerHTML=""}
+function shPlay(rate){if(!shCur)shNext();speak(shCur,rate)}
+function shCheck(){
+  if(!shCur){shNext();return}
+  const said=$("shInput").value.trim();
+  if(!said){toast("Önce sesli söyle ve yaz(dır)");return}
+  const r=diffScore(shCur,said);
+  const ds=getDS();
+  let xpNote="";
+  if(r.score>=60&&ds.sh<10){ds.sh++;addXp(5);xpNote=` <span class="tag yl">+5 XP</span>`}
+  saveS();$("shDone").textContent=Math.min(ds.sh,10);
+  $("shResult").innerHTML=`<hr class="sep"><div class="grid2"><div class="scorering" style="color:${r.score>=75?"var(--gr)":r.score>=50?"var(--yl)":"var(--rd)"}">${r.score}%<span class="lab">${scoreMsg(r.score)}${xpNote}</span></div>
+  <div><div class="sub" style="margin-bottom:6px">Hedef cümle (kırmızı = kaçırdığın):</div><div class="diffbox">${r.tHtml}</div>
+  ${r.extras.length?`<div class="sub" style="margin-top:6px">Fazladan söylediklerin: <span class="w-extra">${esc(r.extras.join(" "))}</span></div>`:""}</div></div>`;
+}
+let recog=null;
+function initMic(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR)return;
+  try{
+    recog=new SR();recog.lang="en-US";recog.interimResults=false;recog.maxAlternatives=1;
+    recog.onresult=e=>{$("shInput").value=e.results[0][0].transcript;shCheck()};
+    recog.onerror=e=>{toast("Mikrofon çalışmadı ("+e.error+") — Win+H / Gboard ile yazdır")};
+    $("shMicBtn").style.display="inline-flex";
+  }catch(e){}
+}
+function shMic(){if(!shCur)shNext();try{recog.start();toast("🎤 Dinliyorum... İngilizce söyle")}catch(e){}}
+
+/* ---------- Dikte ---------- */
+let dcLv="A1",dcCur=null,dcPlayN=0;
+function dcNew(){const arr=SENT[dcLv];dcCur=arr[Math.floor(Math.random()*arr.length)];dcPlayN=0;
+  $("dcPlays").textContent=0;$("dcInput").value="";$("dcResult").innerHTML="";toast("Yeni cümle hazır — Dinle'ye bas")}
+function dcPlay(rate){if(!dcCur)dcNew();dcPlayN++;$("dcPlays").textContent=dcPlayN;speak(dcCur,rate)}
+function dcCheck(){
+  if(!dcCur){toast("Önce 🔊 Dinle'ye bas");return}
+  const said=$("dcInput").value.trim();
+  if(!said){toast("Duyduğunu yazmadan kontrol edemem");return}
+  const r=diffScore(dcCur,said);
+  const ds=getDS();let xpNote="";
+  if(r.score>=80&&ds.dc<5){ds.dc++;addXp(5);xpNote=` <span class="tag yl">+5 XP</span>`}
+  saveS();$("dcDone").textContent=Math.min(ds.dc,5);
+  $("dcResult").innerHTML=`<hr class="sep"><div class="grid2"><div class="scorering" style="color:${r.score>=80?"var(--gr)":r.score>=50?"var(--yl)":"var(--rd)"}">${r.score}%<span class="lab">${scoreMsg(r.score)}${xpNote}</span></div>
+  <div><div class="sub" style="margin-bottom:6px">Doğrusu:</div><div class="diffbox">${r.tHtml}</div></div></div>`;
+}
+function dcReveal(){if(!dcCur){toast("Önce 🔊 Dinle'ye bas");return}$("dcResult").innerHTML=`<hr class="sep"><div class="diffbox">${esc(dcCur)}</div><div class="sub" style="margin-top:6px">Şimdi 2 kez sesli oku, sonra yeni cümleye geç.</div>`}
+
+/* ---------- Senaryolar ---------- */
+let scenLv="A1";
+function renderScen(){
+  $("scenList").innerHTML=SCEN.filter(s=>s.lv===scenLv).map((s,i)=>`
+    <details class="scenario">
+      <summary>${esc(s.t)} <span class="tag ${s.lv.toLowerCase()}">${s.lv}</span></summary>
+      <div class="inner">
+        <p><strong>Görev:</strong> ${esc(s.goal)}</p>
+        <p class="sub" style="margin:8px 0 4px">Önce bu kalıpları 2'şer kez sesli oku:</p>
+        ${s.ph.map(p=>`<div class="phr">${esc(p)}<span class="sp iconbtn" onclick="speak('${esc(p).replace(/'/g,"\\'")}')">🔊</span></div>`).join("")}
+        <p class="sub" style="margin:10px 0 4px">Gemini Live'a başlatma promptu:</p>
+        <div class="promptbox" id="scp${scenLv}${i}">${esc(s.pr)}<button class="btn small cyan copybtn" onclick="copyText('scp${scenLv}${i}')">📋</button></div>
+      </div>
+    </details>`).join("");
+}
+
+/* ---------- SRS Kelime ---------- */
+const NEW_LIMIT=15;
+function allCards(){
+  return VOCAB.map((v,i)=>({id:"v"+i,en:v[0],tr:v[1],ex:v[2],lv:v[3]}))
+    .concat(S.custom.map(c=>({id:c.id,en:c.en,tr:c.tr,ex:c.ex||"",lv:"C"})));
+}
+function dueCount(){
+  const t=today();const cards=allCards();
+  const due=cards.filter(c=>S.srs[c.id]&&S.srs[c.id].due<=t).length;
+  const newAvail=Math.min(Math.max(0,NEW_LIMIT-(S.intro[t]||0)),cards.filter(c=>!S.srs[c.id]).length);
+  return due+newAvail;
+}
+let kQueue=[],kCur=null,kRevealed=false;
+function buildQueue(){
+  const t=today();const cards=allCards();
+  const due=cards.filter(c=>S.srs[c.id]&&S.srs[c.id].due<=t);
+  const newAvail=Math.max(0,NEW_LIMIT-(S.intro[t]||0));
+  const news=cards.filter(c=>!S.srs[c.id]).slice(0,newAvail);
+  kQueue=due.concat(news);
+}
+function setKMode(m){S.kmode=m;saveS();$("modeFlip").classList.toggle("act",m==="flip");$("modeType").classList.toggle("act",m==="type");kRevealed=false;renderSrs(true)}
+function renderSrs(keep){
+  const t=today();const cards=allCards();
+  let learned=0;for(const id in S.srs)if(S.srs[id].iv>=21)learned++;
+  const due=cards.filter(c=>S.srs[c.id]&&S.srs[c.id].due<=t).length;
+  $("kvDue").textContent=due;
+  $("kvNew").textContent=Math.max(0,NEW_LIMIT-(S.intro[t]||0));
+  $("kvLearned").textContent=learned;$("kvTotal").textContent=cards.length;
+  $("modeFlip").classList.toggle("act",S.kmode==="flip");$("modeType").classList.toggle("act",S.kmode==="type");
+  if(!keep||!kCur){
+    if(!kQueue.length)buildQueue();
+    kCur=kQueue.shift()||null;kRevealed=false;
+  }
+  const b=$("srsBody");
+  if(!kCur){
+    b.innerHTML=`<div class="emptymsg">🎉 Bugünlük bitti! Yarın kartların seni bekliyor.<br><span class="sub">Canın daha çok isterse: Deste Gezgini'nden göz at ya da yeni kart ekle.</span></div>`;
+    renderHeader();return;
+  }
+  const isNew=!S.srs[kCur.id];
+  const tagLv=kCur.lv==="P"?'<span class="tag or">KALIP</span>':kCur.lv==="C"?'<span class="tag yl">BENİM</span>':`<span class="tag ${kCur.lv.toLowerCase()}">${kCur.lv}</span>`;
+  if(S.kmode==="flip"){
+    b.innerHTML=`<div class="flash">
+      <div class="lvtag">${tagLv} ${isNew?'<span class="tag a1">YENİ</span>':""}</div>
+      <span class="iconbtn speak" onclick="speak('${esc(kCur.en).replace(/'/g,"\\'")}')">🔊</span>
+      <div class="front">${esc(kCur.en)}</div>
+      ${kRevealed?`<div class="back"><div class="tr">${esc(kCur.tr)}</div>${kCur.ex?`<div class="ex">"${esc(kCur.ex)}"</div>`:""}</div>`:""}
+    </div>
+    ${kRevealed?gradeHtml():`<button class="btn primary" style="width:100%" onclick="kReveal()">Cevabı Göster (boşluk tuşu)</button>`}
+    <div class="sub" style="text-align:center;margin-top:8px">Kalan: ${kQueue.length+1}</div>`;
+  }else{
+    b.innerHTML=`<div class="flash">
+      <div class="lvtag">${tagLv}</div>
+      <div class="tr" style="font-size:1.4rem;color:var(--or2);font-weight:700">${esc(kCur.tr)}</div>
+      ${kCur.ex?`<div class="ex" style="margin-top:8px">"${esc(maskWord(kCur.ex,kCur.en))}"</div>`:""}
+      ${kRevealed?`<div class="back"><div class="front" style="font-size:1.5rem">${esc(kCur.en)}</div></div>`:""}
+    </div>
+    ${kRevealed?gradeHtml():`<input class="input" id="kType" placeholder="İngilizcesini yaz..." autocomplete="off" style="margin-bottom:10px">
+    <button class="btn primary" style="width:100%" onclick="kTypeCheck()">Kontrol Et (Enter)</button>`}
+    <div class="sub" style="text-align:center;margin-top:8px">Kalan: ${kQueue.length+1}</div>`;
+    const inp=$("kType");if(inp){inp.focus();inp.onkeydown=e=>{if(e.key==="Enter")kTypeCheck()}}
+  }
+}
+function maskWord(ex,en){
+  const w=en.split(" ")[0].replace(/[^a-zA-Z']/g,"");
+  if(!w)return ex;
+  return ex.replace(new RegExp(w.replace(/'/g,"\\'"),"ig"),"_____");
+}
+function gradeHtml(){return `<div class="gradebtns">
+  <button class="btn gAgain" onclick="kGrade(0,event)">Bilemedim<span class="sub">&lt;10 dk</span></button>
+  <button class="btn gHard" onclick="kGrade(1,event)">Zor<span class="sub">kısa aralık</span></button>
+  <button class="btn gGood" onclick="kGrade(2,event)">Bildim<span class="sub">normal</span></button>
+  <button class="btn gEasy" onclick="kGrade(3,event)">Çok kolay<span class="sub">uzun aralık</span></button></div>`}
+function kReveal(){kRevealed=true;speak(kCur.en);renderSrs(true)}
+function kTypeCheck(){
+  const v=($("kType").value||"").trim();
+  kRevealed=true;
+  const ok=norm(v)===norm(kCur.en)||diffScore(kCur.en,v).score>=85;
+  toast(ok?"✅ Doğru!":"❌ Doğrusu: "+kCur.en);
+  speak(kCur.en);renderSrs(true);
+}
+function kGrade(g,ev){
+  const t=today();const id=kCur.id;
+  let r=S.srs[id];
+  if(!r){r={iv:0,ease:2.3,reps:0};S.intro[t]=(S.intro[t]||0)+1}
+  r.reps++;
+  if(g===0){r.iv=0;r.ease=Math.max(1.3,r.ease-0.2);kQueue.push(kCur)}
+  else if(g===1){r.iv=r.iv===0?0.5:r.iv*1.2;r.ease=Math.max(1.3,r.ease-0.05)}
+  else if(g===2){r.iv=r.iv===0?1:r.iv*r.ease}
+  else{r.iv=r.iv===0?3:r.iv*r.ease*1.35;r.ease=Math.min(3,r.ease+0.1)}
+  const d=new Date();d.setDate(d.getDate()+Math.round(r.iv));
+  r.due=g===0?t:dstr(d);
+  S.srs[id]=r;addXp(2,ev);saveS();
+  kCur=null;renderSrs();
+}
+function addCustomCard(){
+  const en=$("ncEn").value.trim(),tr=$("ncTr").value.trim(),ex=$("ncEx").value.trim();
+  if(!en||!tr){toast("İngilizce ve Türkçe alanları lazım");return}
+  S.custom.push({id:"c"+Date.now(),en,tr,ex});saveS();
+  $("ncEn").value="";$("ncTr").value="";$("ncEx").value="";
+  toast("🃏 Kart eklendi — yeni kart sırasına girdi");renderSrs(true);renderDeck();
+}
+let deckF="all";
+function renderDeck(){
+  const q=norm($("deckSearch")?$("deckSearch").value:"");
+  const cards=allCards().filter(c=>{
+    if(deckF==="C"&&c.lv!=="C")return false;
+    if(deckF==="P"&&c.lv!=="P")return false;
+    if(["A1","A2","B1"].includes(deckF)&&c.lv!==deckF)return false;
+    if(q&&!norm(c.en+" "+c.tr).includes(q))return false;
+    return true;
+  });
+  $("deckList").innerHTML=cards.length?`<table class="simple">`+cards.map(c=>{
+    const r=S.srs[c.id];
+    const st=r?(r.iv>=21?'<span class="tag a1">öğrenildi</span>':'<span class="tag a2">çalışılıyor</span>'):'<span class="tag yl">yeni</span>';
+    const del=c.lv==="C"?` <a href="javascript:delCustom('${c.id}')" style="color:var(--rd)">sil</a>`:"";
+    return `<tr><td><strong>${esc(c.en)}</strong></td><td>${esc(c.tr)}</td><td>${st}${del}</td></tr>`;
+  }).join("")+`</table>`:`<div class="emptymsg">Sonuç yok</div>`;
+}
+function delCustom(id){S.custom=S.custom.filter(c=>c.id!==id);delete S.srs[id];saveS();renderDeck();toast("Kart silindi")}
+
+/* ---------- Yazma ---------- */
+function curPrompt(){const dayIdx=Math.floor(Date.now()/86400000);return WPROMPTS[(S.wpIdx!==null&&S.wpIdx!==undefined?S.wpIdx:dayIdx)%WPROMPTS.length]}
+function renderWriting(){$("writePrompt").textContent=curPrompt();$("jCount").textContent=S.journal.length;renderJournal()}
+function newWritePrompt(){S.wpIdx=Math.floor(Math.random()*WPROMPTS.length);saveS();renderWriting();toast("Yeni görev hazır")}
+function wCount(){const n=($("writeText").value.trim().match(/\S+/g)||[]).length;$("wWords").textContent=n+" kelime";$("wWords").style.color=n>=40?"var(--gr)":"var(--tx2)"}
+function saveWriting(){
+  const t=$("writeText").value.trim();
+  const n=(t.match(/\S+/g)||[]).length;
+  if(n<20){toast("En az 20 kelime yaz — şu an "+n);return}
+  S.journal.unshift({d:today(),p:curPrompt(),t});
+  const ds=getDS();const xp=ds.wr===0?20:5;ds.wr++;
+  addXp(xp);saveS();
+  $("writeText").value="";wCount();renderWriting();
+  toast("💾 Kaydedildi +"+xp+" XP — şimdi düzeltme promptuyla AI'ya götür");
+}
+function copyCorrection(){
+  const t=$("writeText").value.trim()||(S.journal[0]?S.journal[0].t:"");
+  if(!t){toast("Önce bir şeyler yaz");return}
+  const lv=S.level||"A2";
+  const p=`Act as my English teacher. Below is my text. 1) Correct it. 2) Make a table: my mistake → correction → short explanation IN TURKISH. 3) Rewrite my text in natural English at my level (${lv}), not fancy English. 4) Give me 3 useful phrases I could have used.\n\nMy text: ${t}`;
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(p).then(()=>toast("📋 Yazın + düzeltme talimatı kopyalandı"))}
+  else fallbackCopy(p,()=>toast("📋 Kopyalandı"));
+}
+function renderJournal(){
+  $("journalList").innerHTML=S.journal.length?S.journal.map((j,i)=>`
+    <details><summary>${esc(j.d)} — ${esc(j.p.slice(0,60))}...</summary>
+    <div class="inner"><p style="white-space:pre-wrap">${esc(j.t)}</p>
+    <a href="javascript:delJournal(${i})" style="color:var(--rd);font-size:.85rem">sil</a></div></details>`).join(""):`<div class="emptymsg">Henüz yazı yok — ilkini bugün yaz!</div>`;
+}
+function delJournal(i){S.journal.splice(i,1);saveS();renderWriting()}
+
+/* ---------- Sohbet defteri ---------- */
+function saveConvo(){
+  const t=$("convoText").value.trim();
+  if(t.length<30){toast("Biraz daha not al (en az 30 karakter) — kalıpları ve hataları yaz");return}
+  S.convos.unshift({d:today(),t});
+  const ds=getDS();const xp=ds.cv<2?20:5;ds.cv++;
+  addXp(xp);saveS();$("convoText").value="";renderConvos();
+  toast("📓 Oturum kaydedildi +"+xp+" XP");
+}
+function renderConvos(){
+  $("convoCount").textContent=S.convos.length;
+  $("convoList").innerHTML=S.convos.slice(0,10).map((c,i)=>`
+    <details><summary>${esc(c.d)} <span class="sub">${esc(c.t.slice(0,40))}...</span></summary>
+    <div class="inner"><p style="white-space:pre-wrap">${esc(c.t)}</p>
+    <a href="javascript:delConvo(${i})" style="color:var(--rd);font-size:.85rem">sil</a></div></details>`).join("")||`<div class="emptymsg" style="padding:10px">İlk Gemini seansından sonra burası dolacak</div>`;
+}
+function delConvo(i){S.convos.splice(i,1);saveS();renderConvos()}
+function quickCard(){
+  const en=$("qcEn").value.trim(),tr=$("qcTr").value.trim();
+  if(!en||!tr){toast("İki alanı da doldur");return}
+  S.custom.push({id:"c"+Date.now(),en,tr,ex:""});saveS();
+  $("qcEn").value="";$("qcTr").value="";
+  toast("🃏 Karta çevrildi — yarınki tekrarında karşına çıkar");
+}
+
+/* ---------- Pomodoro ---------- */
+let pomo={left:1500,run:false,phase:"focus",iv:null};
+function pomoRender(){
+  const m=String(Math.floor(pomo.left/60)).padStart(2,"0"),s=String(pomo.left%60).padStart(2,"0");
+  $("pomoTime").textContent=m+":"+s;
+  $("pomoPhase").textContent=pomo.phase==="focus"?"Odak turu":"Mola";
+  $("pomoBtn").textContent=pomo.run?"⏸ Durdur":"▶ Başlat";
+}
+function beep(){try{const ctx=new (window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=880;g.gain.value=.15;o.start();setTimeout(()=>{o.stop();ctx.close()},600)}catch(e){}}
+function pomoToggle(){
+  pomo.run=!pomo.run;
+  if(pomo.run){pomo.iv=setInterval(()=>{
+    pomo.left--;
+    if(pomo.left<=0){
+      beep();
+      if(pomo.phase==="focus"){addXp(5);toast("🍅 Odak turu bitti +5 XP — 5 dk mola");pomo.phase="break";pomo.left=300}
+      else{toast("Mola bitti — yeni tur");pomo.phase="focus";pomo.left=1500}
+    }
+    pomoRender();
+  },1000)}
+  else clearInterval(pomo.iv);
+  pomoRender();
+}
+function pomoReset(){clearInterval(pomo.iv);pomo={left:1500,run:false,phase:"focus",iv:null};pomoRender()}
+
+/* ---------- İlerleme ---------- */
+function renderProgress(){
+  $("pXp").textContent=S.xp;$("pStreak").textContent=streak();$("pBest").textContent=bestStreak();
+  let learned=0;for(const id in S.srs)if(S.srs[id].iv>=21)learned++;
+  $("pWords").textContent=learned;$("pConvo").textContent=S.convos.length;$("pWrite").textContent=S.journal.length;
+  const days=[];const d=new Date();
+  for(let i=6;i>=0;i--){const x=new Date(d);x.setDate(d.getDate()-i);days.push(x)}
+  const max=Math.max(40,...days.map(x=>S.log[dstr(x)]||0));
+  $("weekBars").innerHTML=days.map(x=>{
+    const v=S.log[dstr(x)]||0;
+    return `<div class="wb"><div class="bv">${v||""}</div><div class="bar" style="height:${Math.max(3,v/max*100)}%"></div><div class="bl">${x.toLocaleDateString("tr-TR",{weekday:"short"})}</div></div>`;
+  }).join("");
+  let cal="";
+  for(let i=69;i>=0;i--){
+    const x=new Date(d);x.setDate(d.getDate()-i);
+    const v=S.log[dstr(x)]||0;
+    const cl=v===0?"":v<30?"l1":v<80?"l2":"l3";
+    cal+=`<div class="c ${cl}" title="${dstr(x)}: ${v} XP"></div>`;
+  }
+  $("calGrid").innerHTML=cal;
+  $("rankList").innerHTML=RANKS.map((r,i)=>{
+    const need=i*300;const cur=rank()===r;
+    return `<div class="pill ${cur?"act":""}" style="cursor:default">${cur?"▶ ":""}${r} <span class="sub">${need}+</span></div>`;
+  }).join("");
+}
+
+/* ---------- Yedekleme ---------- */
+function exportData(){
+  const blob=new Blob([JSON.stringify(S,null,1)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);
+  a.download="ingilizce-komuta-yedek-"+today()+".json";a.click();
+  toast("⬇️ Yedek indirildi");
+}
+function importData(ev){
+  const f=ev.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(r.result);if(typeof d.xp!=="number")throw 0;S=d;saveS();initAll();toast("✅ Yedek yüklendi");}catch(e){toast("❌ Geçersiz yedek dosyası")}};
+  r.readAsText(f);
+}
+
+// ===INIT===
+function bindPills(containerId,cb){
+  document.querySelectorAll("#"+containerId+" .pill").forEach(p=>{
+    p.addEventListener("click",()=>{
+      document.querySelectorAll("#"+containerId+" .pill").forEach(x=>x.classList.remove("act"));
+      p.classList.add("act");cb(p.dataset.lv||p.dataset.f);
+    });
+  });
+}
+function initAll(){
+  renderHeader();renderToday();renderTest();renderPlan();renderScen();
+  renderWriting();renderConvos();renderDeck();renderSrs(true);
+  shNext();pomoRender();wCount();
+}
+bindPills("scenPills",v=>{scenLv=v;renderScen()});
+bindPills("shLvPills",v=>{shLv=v;shNext()});
+bindPills("dcLvPills",v=>{dcLv=v;dcNew()});
+bindPills("deckPills",v=>{deckF=v;renderDeck()});
+document.addEventListener("keydown",e=>{
+  if(e.code==="Space"&&document.querySelector("#sec-kelime.act")&&kCur&&!kRevealed&&S.kmode==="flip"&&!["INPUT","TEXTAREA"].includes(document.activeElement.tagName)){e.preventDefault();kReveal()}
+});
+initMic();
+initAll();
+
+</script>
+</body>
+</html>
